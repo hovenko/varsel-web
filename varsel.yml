@@ -4,6 +4,8 @@ name: Varsel
 authentication:
     default_realm:  members
     realms:
+        # This section is used to authenticate regular users
+        # who register forecast notices in this system.
         members:
             credential:
                 class:              Password
@@ -15,6 +17,9 @@ authentication:
                 class:              DBIx::Class
                 user_class:         YRDB::Profile
                 id_field:           email
+
+        # This section is used for automatically logging users in
+        # the first time they verify their user account.
         verify:
             credential:
                 class:              Password
@@ -23,6 +28,9 @@ authentication:
                 class:              DBIx::Class
                 user_class:         YRDB::Profile
                 id_field:           email
+
+        # This section is to only allow certain hosts to access the backend
+        # functionality of this system.
         scheduler:
             credential:
                 class:          '+Varsel::Authentication::Credential::Exists'
@@ -48,22 +56,23 @@ Model::YRDB:
       - varsel
 
 Model::Forecast::Email::First:
-    from:       'Værvarsel <hovenko@linpro.no>'
+    from:       'Værvarsel <root@localhost>'
     subject:    'Værvarselet ditt er klart'
 
 Model::Forecast::Email::Changes:
-    from:       'Værvarsel <hovenko@linpro.no>'
+    from:       'Værvarsel <root@localhost>'
     subject:    'Endring i værvarselet'
 
 Model::Forecast::Email::Last:
-    from:       'Værvarsel <hovenko@linpro.no>'
+    from:       'Værvarsel <root@localhost>'
     subject:    'Siste oppdatering av værvarselet'
 
 View::Email:
     sender:
         mailer:         SMTP
         mailer_args:
-            Host:       smtp.tele2.no
+            Host:       localhost
 
 Controller::Register:
     default_input_email:    'Din e-postadresse'
+
