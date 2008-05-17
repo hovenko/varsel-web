@@ -1,0 +1,3 @@
+[% FOREACH stylesheet IN stylesheets -%]
+  <style type="text/css">@import url([% stylesheet.url |html%]);</style> 
+[% END -%]

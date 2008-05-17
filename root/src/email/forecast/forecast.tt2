@@ -1,0 +1,16 @@
+[% USE date(locale = 'nb_NO') -%]
+Værvarsel for [% notice.forecasttime.strftime('%d. %B kl %H:%M') %]:
+
+Det er forventet [% forecast.symbol_string %] og [% forecast.temp_value %] grader.
+[% IF forecast.precip_value -%]
+Nedbør: [% forecast.precip_value %] [% forecast.precip_unit %].
+[% END -%]
+[% IF forecast.windspeed > 0 -%]
+Vind: [% forecast.windspeed %] meter per sekund fra [% forecast.winddirection_string %].
+[% END -%]
+[% IF forecast.fog > 5 -%]
+Det er fare for tåke.
+[% END -%]
+[% IF notice.address %]
+Du søkte etter "[% notice.address %]" på kartet.
+[% END %]

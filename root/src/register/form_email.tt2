@@ -1,0 +1,29 @@
+<form action="[% Catalyst.uri_for('/register/email') %]" method="post">
+    <p>
+        [% IF Catalyst.user %]
+        <span>Gå videre for å legge inn et værvarsel!</span>
+        <input type="hidden" name="email" value="[% Catalyst.user.email %]" />
+        [% ELSE %]
+        <label for="varsle-reg.email">E-postadresse:</label>
+        <input type="text" id="varsle-reg.email" name="email" value="[% reg.email || def_email_input %]" />
+        [% END %]
+        [% IF validation.email -%]
+        <span class="error validation">[% validation.email %]</span>
+        [% END -%]
+    </p>
+    <p>
+        [% PROCESS register/form_reg_inputs.tt2 %]
+        <span class="button">
+            <input type="submit" value="Gå videre" title="Gå videre for å velge sted" />
+        </span>
+    </p>
+</form>
+<script type="text/javascript">
+    <!--//--><![CDATA[
+    var register        = new Register();
+    var registerEmail   = new register.EmailInput(
+        'varsle-reg.email',
+        '[% def_email_input |html %]'
+    );
+    //]]>
+</script>

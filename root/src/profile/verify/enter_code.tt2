@@ -1,0 +1,18 @@
+<div id="velkommen">
+    <h2>Skriv inn verifiseringskoden</h2>
+
+    <p>
+        Du skal ha mottat en e-post med verifiseringsinformasjon.
+        Sjekk også mappen for uønsket e-post (spam).
+    </p>
+    
+    <p>
+        Åpne lenken som står i e-posten eller skriv inn verifiseringskoden
+        som står i e-posten i skjemaet nedenfor.
+    </p>
+</div>
+
+<div class="inner-box">
+    <h2>Skriv inn verifiseringskoden</h2>
+    [% PROCESS profile/verify/form_verify_code.tt2 %]
+</div>

@@ -1,0 +1,23 @@
+<div id="velkommen">
+    <h2>Meld om varsling</h2>
+
+    <p>
+        Velkommen [% user.firstname %]. Vi håper du setter pris på tjensten vi tilbyr deg og at du vil
+        fortsette å bruke den.
+    </p>
+    <p>
+        Du kan nå motta værvarslinger uten å registrere flere opplysninger om
+        deg selv.
+        Alt vi trenger fra deg nå er hvor du ønsker værvarsel fra og på hvilken
+        dato du ønsker det for.
+    </p>
+</div>
+
+<div class="outer-box">
+
+
+<div id="varsle-reg" class="inner-box">
+    [% PROCESS register/form_email.tt2 %]
+</div>
+
+</div>

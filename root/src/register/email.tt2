@@ -1,0 +1,25 @@
+
+<div id="velkommen">
+    <h2>Steg 1 - Hvem er du?</h2>
+
+    <p>
+        For at du skal kunne motta varsler må du skrive inn din ekte
+        e-postadresse her. Vi lover å ikke misbruke denne e-postadressen, som
+        for eksempel til reklame eller å gi den til andre.
+        Du må godta
+        <a href="[% Catalyst.uri_for('/terms') %]" title="Betingelser for registrering">betingelsene</a>
+        før du går videre.
+    </p>
+    
+    <p>
+        Du skal føle deg trygg her og vite at du kun får det du ber om,
+        verken mer eller mindre.
+    </p>
+</div>
+
+<div id="varsle-reg" class="inner-box">
+    [% IF ! Catalyst.user %]
+    <h2>Skriv inn din e-postadresse for å motta værvarsel</h2>
+    [% END %]
+    [% PROCESS register/form_email.tt2 %]
+</div>

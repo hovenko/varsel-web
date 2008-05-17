@@ -1,0 +1,21 @@
+<div id="velkommen">
+    <h2>Vennligst verifisér deg først</h2>
+
+    <p>
+        For at du skal kunne logge inn og motta flere værvarsler må du
+        verifisere din e-postadresse. Det gjør du ved å følge lenken som du skal
+        ha mottatt i en e-post fra oss tidligere.
+    </p>
+    <p>
+        Dersom du mot formodning ikke skal ha mottatt en e-post fra oss
+        tidligere med informasjon om hvordan du verifiserer din e-postadresse
+        kan du be om en ny e-post.
+    </p>
+</div>
+
+<div id="verify-new-email" class="inner-box">
+    <h2>Mangler verifiseringsinformasjon?</h2>
+    <p>Motta ny e-post ved å skrive inn din e-postadresse og klikk videre.</p>
+    [% PROCESS verify/form_email.tt2 %]
+</div>
+

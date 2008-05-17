@@ -1,0 +1,21 @@
+<form method="post" action="[% Catalyst.uri_for('/login') %]">
+    [% IF validation.login %]
+    <p class="error">
+        [% validation.login %]
+    </p>
+    [% END %]
+    <p>
+        <label for="varsle-login.email">E-post:</label>
+        <input type="text" id="varsle-login.email" name="email" value="[% email %]" />
+        
+    </p>
+    <p>
+        <label for="varsle-login.password">Passord:</label>
+        <input type="password" id="varsle-login.password" name="password" value="" />
+    </p>
+    <p>
+        <span class="button">
+            <input type="submit" name="submit" value="Logg inn" />
+        </span>
+    </p>
+</form>

@@ -1,0 +1,6 @@
+Siste varsling.
+
+[% PROCESS email/forecast/forecast.tt2 %]
+
+Dette er siste varsling du vil motta for dette værvarselet.
+Dersom du ønsker flere varslinger kan du legge et nytt besøk til [% Catalyst.uri_for('/') %], logge inn og registrere nye varslinger.

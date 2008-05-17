@@ -1,0 +1,23 @@
+[% META widecolum = 1 %]
+
+<div id="velkommen">
+    <h2>Steg 4 - Hvem er du?</h2>
+
+    <p>
+        Vi ønsker å vite litt mer om deg før du får registrert ditt valgte
+        værvarsel. Når du har registrert deg vil du kunne logge inn med din
+        e-postadresse som brukernavn og det passordet du velger nedenfor.
+    </p>
+    <p>
+        Det er viktig at e-postadressen du har oppgitt er korrekt.
+        Når du er ferdig og går videre fra denne siden vil
+        du motta en e-post. Denne inneholder opplysninger for hvordan du
+        bekrefter (eller aktiverer) e-postadressen din. Dette er nødvendig for
+        at du skal kunne logge inn og kunne motta nye værvarslinger senere.
+    </p>
+</div>
+
+<div id="varsle-reg" class="inner-box">
+	<h2>Vennligst fyll inn litt om deg seg</h2>
+    [% PROCESS register/form_profile.tt2 %]
+</div>

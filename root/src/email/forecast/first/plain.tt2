@@ -1,0 +1,5 @@
+Første værvarsel.
+
+[% PROCESS email/forecast/forecast.tt2 %]
+
+Du vil motta nye varslinger fram mot datoen du har valgt dersom varselet forandrer seg.

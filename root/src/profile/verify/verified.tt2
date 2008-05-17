@@ -1,0 +1,14 @@
+<div id="velkommen">
+    <h2>Du er nå verifisert!</h2>
+
+    <p>
+        Du kan nå be om så mange værvarslinger du ønsker.
+    </p>
+</div>
+
+<div class="inner-box">
+    <p>
+        Du kan nå gå tilbake til <a href="[% Catalyst.uri_for('/') %]">forsiden</a>
+        for å registrere flere varslinger.
+    </p>
+</div>

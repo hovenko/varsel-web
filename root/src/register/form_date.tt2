@@ -1,0 +1,37 @@
+<form action="[% Catalyst.uri_for('/register/date') %]" method="post">
+    <p>
+        <label for="varsle-reg.date">Dato</label>
+        <input type="text" id="varsle-reg.date" name="date" value="[% reg.date %]" />
+        [% IF validation.date -%]
+        <span class="error validation">[% validation.date %]</span>
+        [% END -%]
+    </p>
+    <div class="input help">
+        Datoen må skrives inn på følgende format: ÅÅÅÅ-MM-DD.
+        For eksempel 2008-03-22.
+    </div>
+    <p>
+        <label for="varsle-reg.time">Klokkeslett</label>
+        <input type="text" id="varsle-reg.time" size="5" name="time" value="[% reg.time %]" />
+        [% IF validation.time -%]
+        <span class="error validation">[% validation.time %]</span>
+        [% END -%]
+    </p>
+    <div class="input help">
+        Klokkeslettet må skrives inn på følgende format: TT:MM.
+        For eksempel 12:00.
+    </div>
+        
+    <p>
+        [% PROCESS register/form_reg_inputs.tt2 %]
+        <span class="button">
+            <input type="submit" value="Gå videre til registrering &raquo;" />
+        </span>
+    </p>
+</form>
+<script type="text/javascript">
+    <!--//--><![CDATA[
+    var register        = new Register();
+    var registerDate    = new register.DatePicker('varsle-reg.date');
+    //]]>
+</script>

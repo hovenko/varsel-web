@@ -1,0 +1,15 @@
+<div id="velkommen">
+    <h2>Ikke registrert</h2>
+
+    <p>
+        Du er ikke registrert.
+    </p>
+</div>
+
+<div class="inner-box">
+    <p>
+        Du kan
+        <a href="[% Catalyst.uri_for('/register/email', { 'email' => email }) %]">registrere
+        en værvarsling</a> nå hvis du vil.
+    </p>
+</div>

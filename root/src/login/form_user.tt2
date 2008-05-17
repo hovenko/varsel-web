@@ -1,0 +1,17 @@
+<form action="[% Catalyst.uri_for('/logout') %]" method="post">
+    <p>
+        Logget inn som [% Catalyst.user.firstname %].
+    </p>
+    
+    <p>
+        <a href="[% Catalyst.uri_for('/user') %]" title="Se varslinger du har i vente">Dine varslinger</a>
+    </p>
+    
+    <p>
+        <a href="[% Catalyst.uri_for('/register') %]" title="Registrer ny værvarsel">Nytt varsel</a>
+    </p>
+    
+    <span class="button logout">
+        <input type="submit" title="Logg ut [% user.firstname %]" value="Logg ut her" />
+    </span>
+</form>

@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+ <head>
+  <title>[% template.title or site.title %]</title>
+  <link rel="icon" href="[% site.url.img.favicon %]" type="image/vnd.microsoft.icon" />
+  <style type="text/css">
+[% PROCESS ttsite.css %]
+  </style>
+[% PROCESS stylesheets.tt2 -%]
+[% PROCESS javascripts.tt2 -%]
+ </head>
+ <body>
+[% content %]
+ </body>
+</html>

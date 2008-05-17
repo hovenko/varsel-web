@@ -1,0 +1,9 @@
+[% META title = 'Feil ved værvarselet' %]
+<p>
+  En feil har oppstått. Beklager, men slikt skjer av og til. Vennligst gi oss
+  beskjed, slik at vi kan rette feilen og du vil få en bedre opplevelse av
+  tjenesten.
+</p>
+<p>
+  Her en feilmeldingen: <span class="error">[% error %]</span>
+</p>

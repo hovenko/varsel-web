@@ -1,0 +1,16 @@
+[% META widecolum = 1 %]
+
+<div id="velkommen">
+    <h2>Steg 2 - Hvor?</h2>
+
+    <p>
+        Du velger på kartet hvor du ønsker værvarsel fra. Du kan skrive inn
+        stedsnavn i søkefeltet rett over kartet eller dra i kartet til du
+        kommer dit du ønsker.
+    </p>
+</div>
+
+<div id="varsle-reg" class="inner-box">
+	<h2>Hvor vil du ha værvarsel fra?</h2>
+    [% PROCESS register/form_place.tt2 %]
+</div>

@@ -1,0 +1,21 @@
+<div id="velkommen">
+    <h2>Meld om varsling</h2>
+
+    <p>
+        Hei, ukjent. Dersom du logger inn eller oppretter konto her kan du be om
+        varsel om vær på en gitt dato fram i tid. Du blir da en av de første til
+        å motta værvarselet.
+    </p>
+</div>
+
+<div id="varsle-reg" class="inner-box">
+    <p>
+        For at du skal kunne motta varsler må du skrive inn din ekte
+        e-postadresse her.
+        Du må godta
+        <a href="[% Catalyst.uri_for('/terms') %]" title="Betingelser for registrering">betingelsene</a>
+        før du går videre.
+    </p>
+    [% PROCESS register/form_email.tt2 %]
+</div>
+

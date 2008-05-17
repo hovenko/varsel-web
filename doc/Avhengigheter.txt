@@ -1,0 +1,30 @@
+= Avhengigheter =
+
+Denne listen er langt i fra komplett, men det er en god start.
+
+Applikasjonen er testet med Perl v5.8.8.
+
+
+== Perl-pakker ==
+
+Disse pakkene kan ha egne dependencies, men de blir installert automatisk av
+CPAN. Kravet er nyeste versjon av disse pakkene og deres dependencies fra CPAN.
+
+Catalyst
+Catalyst::Authentication::Credential::Password
+Catalyst::Authentication::Store::DBIx::Class
+Catalyst::Plugin::Scheduler
+Catalyst::Plugin::Session
+Catalyst::Plugin::Session::State::Cookie
+Catalyst::Plugin::Session::Store::FastMmap
+Catalyst::View::Email
+Catalyst::View::TT
+Data::Validate::Email
+DateTime::Format::ISO8601
+DateTime::Format::MySQL
+DBIx::Class
+DBIx::Class::InflateColumn::DateTime
+Digest::SHA1
+FCGI::ProcManager
+NetAddr::IP
+Template

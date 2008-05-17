@@ -1,0 +1,19 @@
+<div id="velkommen">
+    <h2>Varslinger som venter</h2>
+
+    <p>
+        Hei [% user.firstname %].
+        Her har du en oversikt over værvarsler som står på vent.
+        <!-- Dersom du ikke lenger ønsker å vente på et værvarsel kan du
+        avregistrere den nedenfor. -->
+    </p>
+</div>
+
+<div class="outer-box">
+
+
+<div id="varsle-varsler" class="inner-box">
+    [% PROCESS user/notices_list.tt2 %]
+</div>
+
+</div>

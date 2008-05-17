@@ -1,0 +1,17 @@
+<div id="user-navigator">
+    [% IF user %]
+    [% # For logged in users %]
+    <form action="[% Catalyst.uri_for('/logout') %]" method="post">
+        <span class="are-you-not">Er du ikke [% user.firstname %]?</span>
+        <span class="button logout">
+            <input type="submit" title="Logg ut [% user.firstname %]" value="Logg ut her" />
+        </span>
+    </form>
+    [% ELSE %]
+    [% # Anonymous users %]
+    <span class="button login">
+        <a href="[% Catalyst.uri_for('/login') %]" title="Logg inn med eksisterende konto">Logg inn</a>
+    </span>
+    [% END %]
+</div>
+

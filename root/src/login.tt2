@@ -1,0 +1,20 @@
+[% META widecolum = 1 %]
+
+<div id="velkommen">
+    <h2>Vennligst logg inn</h2>
+
+    <p>
+        Hei, ukjent. Dersom du logger inn eller oppretter konto her kan du be om
+        varsel om vær på en gitt dato fram i tid. Du blir da en av de første til
+        å motta værvarselet.
+    </p>
+</div>
+
+<div id="varsle-login" class="inner-box login-box">
+    [% PROCESS login/form_login.tt2 %]
+    <p>
+        Dersom du ikke har en konto kan du
+        <a href="[% Catalyst.uri_for('/register') %]">registrere</a> en ny.
+    </p>
+</div>
+

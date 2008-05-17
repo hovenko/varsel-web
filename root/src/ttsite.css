@@ -1,0 +1,312 @@
+* {
+    font-family                                     : sans-serif;
+    font-size                                       : 14px;
+    letter-spacing                                  : -0.4px;
+}
+
+html {
+    height                                          : 100%;
+}
+
+body { 
+    background-color                                : [% site.col.page %];
+    color                                           : [% site.col.text %];
+    margin                                          : 0px;
+    padding                                         : 0px;
+    height                                          : 100%;
+    width                                           : 100%;
+}
+
+h2 {
+    font-size                                       : 18px;
+    font-weight                                     : bold;
+}
+
+p {
+    margin-bottom                                   : 12px;
+    margin-top                                      : 12px;
+}
+
+a {
+    color                                           : [% site.col.link %];
+}
+
+a:hover {
+    color                                           : [% site.col.link_hover %];
+}
+
+a.hjem {
+    background                                      : url([% site.url.img.link_home10 %]) center left no-repeat;
+    padding-left                                    : 13px;
+}
+
+
+
+
+#wrapper {
+    background-color                                : [% site.col.wrapper %];
+    display                                         : block;
+    margin                                          : 0 auto;
+    padding                                         : 0;
+    position                                        : relative;
+    width                                           : 600px;
+}
+
+#header {
+    background                                      : [% site.col.header %];
+    border-bottom                                   : 4px solid [% site.col.line %];
+    height                                          : 40px;
+    padding                                         : 0.2em;
+}
+
+#header h1 {
+    padding                                         : 4px;
+    margin                                          : 0px;
+}
+
+#header h1 * {
+    color                                           : [% site.col.header_title %];
+    font-size                                       : 30px;
+    letter-spacing                                  : -1.5px;
+    
+}
+
+#header h1 a {
+    background                                      : url([% site.url.img.sky %]) center left no-repeat;
+    padding-left                                    : 46px;
+    text-decoration                                 : none;
+    font-weight                                     : normal;
+}
+
+#login {
+    background                                      : [% site.col.innerbox %];
+    border-bottom                                   : 2px solid [% site.col.line %];
+    display                                         : block;
+    padding                                         : 0 12px 12px 12px;
+    position                                        : absolute;
+    right                                           : 0;
+    width                                           : 126px;
+}
+
+#login p {
+    margin-top                                      : 7px;
+    margin-bottom                                   : 7px;
+}
+
+#login input[type=text],
+#login input[type=password] {
+    width                                           : 112px;
+}
+
+#inner-wrapper {
+    padding                                         : 16px;
+    position                                        : relative;
+    width                                           : 418px;
+}
+
+#inner-wrapper.widecolumn {
+    width                                           : 568px;
+}
+
+#content {
+    position                                        : relative;
+}
+
+#footer {
+    border-bottom                                   : 4px solid [% site.col.line %];
+    height                                          : 2ex;
+    margin-top                                      : 20px;
+    position                                        : relative;
+}
+
+#footer * {
+    color                                           : [% site.col.footer %];
+    font-size                                       : 11px;
+    letter-spacing                                  : -0.8px;
+}
+
+#footer .varsel-copyright {
+    display                                         : inline;
+    left                                            : 0;
+    margin                                          : 0;
+    position                                        : absolute;
+}
+
+#footer .varsel-datasource {
+    display                                         : inline;
+    margin                                          : 0 8px;
+    padding                                         : 0;
+    position                                        : absolute;
+    right                                           : 0;
+}
+
+#content .inner-box {
+    background                                      : [% site.col.innerbox %];
+    display                                         : block;
+    margin                                          : 40px 50px 40px 50px;
+    padding                                         : 4px 8px;
+    position                                        : relative;
+}
+
+#inner-wrapper.widecolumn .inner-box {
+    margin                                          : 40px 30px 40px 30px;
+}
+
+
+
+
+
+/*
+ * Form elements
+ */
+
+
+input[type=text],
+input[type=password] {
+    border                                          : 1px solid [% site.col.input_borders %];
+    font-size                                       : 13px;
+    padding                                         : 4px;
+}
+
+input[type=submit],
+button,
+.button a {
+    cursor                                          : pointer;
+}
+
+.button input[type=submit],
+#google-map-address-search,
+.button a {
+    background                                      : [% site.col.button %];
+    border                                          : 1px solid [% site.col.input_borders %];
+    color                                           : white;
+    padding                                         : 2px;
+}
+
+.button a {
+    background                                      : [% site.col.button %];
+    color                                           : white;
+    text-decoration                                 : none;
+}
+
+
+
+
+
+/*
+ * Login page
+ */
+
+.login-box form label {
+    position                                        : relative;
+    margin-left                                     : 20px;
+}
+
+.login-box form input[type=text],
+.login-box form input[type=password] {
+    margin-right                                    : 20px;
+    position                                        : absolute;
+    right                                           : 0;
+    width                                           : 50%;
+}
+
+.login-box form input[type=submit] {
+    position                                        : relative;
+    margin-left                                     : 20px;
+}
+
+
+
+
+/*
+ * Message elements
+ */
+
+.message {
+    color: [% site.col.message %];
+}
+
+.error {
+    color: [% site.col.error %];
+}
+
+.note,
+.note * {
+    font-size                                       : 11px;
+}
+
+.input.help {
+    font-size                                       : 0.9em;
+    font-style                                      : italic;
+}
+
+.inner-box table th {
+    text-align                                      : left;
+}
+
+
+
+
+
+/*
+ * Google Maps
+ */
+
+
+.inner-box .google-map-search * {
+    position                                        : relative;
+}
+
+.inner-box .google-map-search {
+    position                                        : relative;
+}
+
+.inner-box #google-map-address {
+    display                                         : block;
+    position                                        : relative;
+    width                                           : 98%;
+}
+
+.inner-box #google-map-address-search {
+    position                                        : absolute;
+    right                                           : 0;
+}
+
+.inner-box #google-map-container {
+    margin                                          : 1em;
+    padding                                         : 1em;
+}
+
+.inner-box #google-map-container #google-map,
+.inner-box #google-map-container #google-map-show {
+    height                                          : 400px;
+    position                                        : relative;
+    width                                           : 436px;
+}
+
+.inner-box #google-map-container #google-map * {
+    font-size                                       : 12px;
+}
+
+.inner-box #google-map-container #google-map-crosshair {
+    height                                          : 0;
+    left                                            : 210px;
+    position                                        : relative;
+    top                                             : -206px;
+    z-index                                         : 200;
+}
+
+.inner-box #google-map-container #google-map-crosshair img {
+    height                                          : 17px;
+    width                                           : 17px;
+}
+
+.no-javascript {
+    background                                      : [% site.col.unsupported_back %];
+    color                                           : [% site.col.unsupported_text %];
+    padding                                         : 4px;
+}
+
+
+
+

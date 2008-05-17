@@ -1,0 +1,15 @@
+<form action="[% Catalyst.uri_for('/verify/resend') %]" method="post">
+    <p>
+        <label for="verify-new-email.email">E-postadresse</label>
+        <input id="verify-new-email" type="text" name="email" value="[% email %]" />
+        [% IF validation.email -%]
+        <span class="error validation">[% validation.email %]</span>
+        [% END -%]
+    </p>
+    
+    <p>
+        <span class="button">
+            <input type="submit" value="Klikk her for å motta ny e-post" />
+        </span>
+    </p>
+</form>
