@@ -40,6 +40,9 @@ sub index : Private {
     else {
         $c->stash->{'template'} = 'index.tt2';
     }
+
+use Data::Dumper;
+print STDERR Dumper $c->stash->{'javascripts'}->scripts;
 }
 
 =head2 default
@@ -75,7 +78,7 @@ This prepares the javascripts array.
 
 sub auto : Private {
     my ( $self, $c ) = @_;
-    $c->stash->{'javascripts'} ||= [];
+    $c->stash->{'javascripts'} ||= $c->model('Javascripts');
     $c->stash->{'stylesheets'} ||= [];
     
     if (my $user = $c->user) {

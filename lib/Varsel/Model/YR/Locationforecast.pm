@@ -3,7 +3,7 @@ package Varsel::Model::YR::Locationforecast;
 use strict;
 use warnings;
 
-use YR::Locationforecast;
+use Weather::YR::Locationforecast;
 
 use base 'Catalyst::Model';
 
@@ -39,7 +39,7 @@ sub ACCEPT_CONTEXT {
     $args ||= {};
     my %args = (%$args, %$self);
     
-    my $yr = YR::Locationforecast->new(\%args);
+    my $yr = Weather::YR::Locationforecast->new(\%args);
     return $yr->forecast;
 }
 

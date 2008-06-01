@@ -141,25 +141,32 @@ sub end : ActionClass('RenderView') {
 
     # Loading the maps
     if (grep { $_ eq $render_step } @JS_STEPS) {
-        # Google Maps
-        my %js_googlemaps = (
-            'url'   => $c->model('GoogleMaps')->javascript_url,
-        );
-        push @{ $c->stash->{'javascripts'} }, \%js_googlemaps;
-        
-        # Map loader
-        my %js_maploader = (
-            'url'   => $c->uri_for('/static/js/google-map-loader.js'),
-        );
-        push @{ $c->stash->{'javascripts'} }, \%js_maploader;
+#        # Google Maps
+#        my %js_googlemaps = (
+#            'url'   => $c->model('GoogleMaps')->javascript_url,
+#        );
+#        push @{ $c->stash->{'javascripts'} }, \%js_googlemaps;
+#
+#        # Map loader
+#        my %js_maploader = (
+#            'url'   => $c->uri_for('/static/js/google-map-loader.js'),
+#        );
+#        push @{ $c->stash->{'javascripts'} }, \%js_maploader;
+
+        $c->stash->{'javascripts'}->add_script(qw/
+            google-maps
+            google-maps-loader
+        /);
     }
     
     # Loading the datetime picker
     if (grep { $_ eq $render_step } @JS_DATE_STEPS) {
-        my %js_ui_datepicker = (
-            'url'   => $c->uri_for('/static/js/ui.datepicker.js'),
-        );
-        push @{ $c->stash->{'javascripts'} }, \%js_ui_datepicker;
+#        my %js_ui_datepicker = (
+#            'url'   => $c->uri_for('/static/js/ui.datepicker.js'),
+#        );
+#        push @{ $c->stash->{'javascripts'} }, \%js_ui_datepicker;
+
+        $c->stash->{'javascripts'}->add_script(qw/ui-datepicker/);
         
         my %css_ui_datepicker = (
             'url'   => $c->uri_for('/static/css/ui.datepicker.css'),
@@ -226,16 +233,18 @@ sub prepare_js_register : Private {
     my ( $self, $c ) = @_;
     
     # jQuery
-    my %js_jquery = (
-        'url'   => $c->uri_for('/static/js/jquery-1.2.3.pack.js'),
-    );
-    push @{ $c->stash->{'javascripts'} }, \%js_jquery;
+#    my %js_jquery = (
+#        'url'   => $c->uri_for('/static/js/jquery-1.2.3.pack.js'),
+#    );
+#    push @{ $c->stash->{'javascripts'} }, \%js_jquery;
     
-    # Loading the register javascript
-    my %js_register = (
-        'url'   => $c->uri_for('/static/js/register.js'),
-    );
-    push @{ $c->stash->{'javascripts'} }, \%js_register;
+#    # Loading the register javascript
+#    my %js_register = (
+#        'url'   => $c->uri_for('/static/js/register.js'),
+#    );
+#    push @{ $c->stash->{'javascripts'} }, \%js_register;
+
+    $c->stash->{'javascripts'}->add_script(qw/register/);
     
     $c->stash->{'def_email_input'}  = $self->{'default_input_email'};
 }

@@ -67,6 +67,30 @@ Model::Forecast::Email::Last:
     from:       'Værvarsel <root@localhost>'
     subject:    'Siste oppdatering av værvarselet'
 
+Model::Javascripts:
+    "google-maps":
+        uri:        "http://maps.google.com/maps"
+        params:
+            file:       api
+            v:          2
+            key:        "ABQIAAAAA3EdiJ5OJBl-sShPqrkj5RTJQa0g3IQ9GZqIMmInSLzwtGDKaBR6oAunersCU9cry7_-imOexnZ8_g"
+    "google-maps-loader":
+        uri:        "/static/js/google-map-loader.js"
+        deps:
+            -   "google-maps"
+            -   jquery
+    "ui-datepicker":
+        uri:        "/static/js/ui.datepicker.js"
+        deps:
+            -   jquery
+    "jquery":
+        uri:        "/static/js/jquery-1.2.3.pack.js"
+    "register":
+        uri:        "/static/js/register.js"
+        deps:
+            -   jquery
+
+
 View::Email:
     sender:
         mailer:         SMTP
