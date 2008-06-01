@@ -40,9 +40,6 @@ sub index : Private {
     else {
         $c->stash->{'template'} = 'index.tt2';
     }
-
-use Data::Dumper;
-print STDERR Dumper $c->stash->{'javascripts'}->scripts;
 }
 
 =head2 default
