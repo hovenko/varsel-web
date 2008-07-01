@@ -163,9 +163,6 @@ sub end : ActionClass('RenderView') {
         if $c->debug;
     
     $c->forward('set_template_for_step', [$render_step]);
-
-use Data::Dumper;
-print STDERR Dumper $c->stash->{'javascripts'}->scripts;
 }
 
 =head2 require_first_timer(C<$reg>)
