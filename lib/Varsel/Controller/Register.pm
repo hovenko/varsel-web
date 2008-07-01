@@ -141,19 +141,7 @@ sub end : ActionClass('RenderView') {
 
     # Loading the maps
     if (grep { $_ eq $render_step } @JS_STEPS) {
-#        # Google Maps
-#        my %js_googlemaps = (
-#            'url'   => $c->model('GoogleMaps')->javascript_url,
-#        );
-#        push @{ $c->stash->{'javascripts'} }, \%js_googlemaps;
-#
-#        # Map loader
-#        my %js_maploader = (
-#            'url'   => $c->uri_for('/static/js/google-map-loader.js'),
-#        );
-#        push @{ $c->stash->{'javascripts'} }, \%js_maploader;
-
-        $c->stash->{'javascripts'}->add_script(qw/
+        $c->model('Javascripts')->add_script(qw/
             google-maps
             google-maps-loader
         /);
@@ -161,12 +149,9 @@ sub end : ActionClass('RenderView') {
     
     # Loading the datetime picker
     if (grep { $_ eq $render_step } @JS_DATE_STEPS) {
-#        my %js_ui_datepicker = (
-#            'url'   => $c->uri_for('/static/js/ui.datepicker.js'),
-#        );
-#        push @{ $c->stash->{'javascripts'} }, \%js_ui_datepicker;
-
-        $c->stash->{'javascripts'}->add_script(qw/ui-datepicker/);
+        $c->model('Javascripts')->add_script(qw/
+            ui-datepicker
+        /);
         
         my %css_ui_datepicker = (
             'url'   => $c->uri_for('/static/css/ui.datepicker.css'),
@@ -178,6 +163,9 @@ sub end : ActionClass('RenderView') {
         if $c->debug;
     
     $c->forward('set_template_for_step', [$render_step]);
+
+use Data::Dumper;
+print STDERR Dumper $c->stash->{'javascripts'}->scripts;
 }
 
 =head2 require_first_timer(C<$reg>)
@@ -232,19 +220,10 @@ This loads the jQuery Javascript library and the Register Javascript.
 sub prepare_js_register : Private {
     my ( $self, $c ) = @_;
     
-    # jQuery
-#    my %js_jquery = (
-#        'url'   => $c->uri_for('/static/js/jquery-1.2.3.pack.js'),
-#    );
-#    push @{ $c->stash->{'javascripts'} }, \%js_jquery;
-    
-#    # Loading the register javascript
-#    my %js_register = (
-#        'url'   => $c->uri_for('/static/js/register.js'),
-#    );
-#    push @{ $c->stash->{'javascripts'} }, \%js_register;
-
-    $c->stash->{'javascripts'}->add_script(qw/register/);
+    # Loading the register javascript
+    $c->model('Javascripts')->add_script(qw/
+        register
+    /);
     
     $c->stash->{'def_email_input'}  = $self->{'default_input_email'};
 }
@@ -370,8 +349,18 @@ sub profile : Local {
             # latitude and longitude for easier use in templates.
             $c->stash->{'reg'}->{'geo'} = $point;
 
+            # Send out the first email now, if forecast time is close
+            if ($c->model('ForecastNotice')->no_further_intervals($notice)) {
+                my $forecast = $c->forward(
+                    '/backend/forecastretrieval/handle_first_notice',
+                    [$notice]
+                );
+                $c->model('ForecastNotice')->set_forecaste($notice, $forecast)
+                    if $forecast;
+            }
         }
         else {
+            # We have a new user
             my %register = %{ $self->register };
             
             
@@ -422,7 +411,18 @@ sub profile : Local {
             
             $c->stash->{'email'} = $email;
             
+            # The Email view reads from the stashed "email" value
             $c->forward( $c->view('Email') );
+
+            # Send out the first email now, if forecast time is close
+            if ($c->model('ForecastNotice')->no_further_intervals($notice)) {
+                my $forecast = $c->forward(
+                    '/backend/forecastretrieval/handle_first_notice',
+                    [$notice]
+                );
+                $c->model('ForecastNotice')->set_forecaste($notice, $forecast)
+                    if $forecast;
+            }
         }
     }
     else {
@@ -557,7 +557,8 @@ to be rendered for view.
 sub set_template_for_step : Private {
     my ( $self, $c, $step ) = @_;
 
-    # If the user is logged in on the last step, we complete it all
+    # If the user is logged in (aka. already registered)
+    # on the last step, we complete it all
     if (my $user = $c->user && $step eq 'complete') {
         $step = 'complete_auth';
     }

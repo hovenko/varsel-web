@@ -46,27 +46,32 @@ CatalystX::Model::ScriptLoader - Class for loading scripts on a web page
     
     # In your configuration (YAML)
     Model::Javascripts:
-        myscript:
-            uri:    /static/js/myscript.js
-            deps:
-                -   other-script
-            params:
-                apikey: very-secret
-        other-script:
-            uri:    http://example.com/other-script.js
+        stashkey:   javascripts
+            scripts:
+            myscript:
+                uri:    /static/js/myscript.js
+                deps:
+                    -   other-script
+                params:
+                    apikey: very-secret
+            other-script:
+                uri:    http://example.com/other-script.js
 
     # or, in your model configuration (Perl)
     __PACKAGE__->config(
-        'myscript'      => {
-            'uri'           => '/static/js/myscript.js',
-            'deps'          => [qw/other-script/],
-            'params'        => {
-                'apikey'        => 'very-secret',
+        'scripts'       => {
+            'myscript'      => {
+                'uri'           => '/static/js/myscript.js',
+                'deps'          => [qw/other-script/],
+                'params'        => {
+                    'apikey'        => 'very-secret',
+                },
+            },
+            'other-script'  => {
+                'uri'           => 'http://example.com/other-script.js',
             },
         },
-        'other-script'  => {
-            'uri'           => 'http://example.com/other-script.js',
-        },
+        'stashkey'      => '_scriptloader',
     );
 
 
@@ -74,6 +79,31 @@ CatalystX::Model::ScriptLoader - Class for loading scripts on a web page
 
 This class utilizes L<HTML::ScriptLoader> to provide easy access for loading
 scripts on a web page with dependency support.
+
+=head1 CONFIGURATION
+
+=head2 stashkey
+
+The name of the stashed object that holds the L<HTML::ScriptLoader> instance
+for the current request.
+
+Defaults to C<_scriptloader>, to make it hard for users to accidentally access
+it directly.
+
+=head2 scripts
+
+A map of scripts, such as Javascripts or stylesheets, which are most likely to
+be the two kinds of scripts/files to load with dependencies on a web page.
+
+See L<HTML::ScriptLoader> for details about configuration of each script.
+
+=cut
+
+__PACKAGE__->config(
+    'stashkey'  => '_scriptloader',
+    'scripts'   => {},
+);
+
 
 =head1 METHODS
 
@@ -87,9 +117,14 @@ set up in configuration.
 sub ACCEPT_CONTEXT {
     my ( $self, $c ) = @_;
 
-    my $scriptloader    = HTML::ScriptLoader->new($self);
+    my $key             = $self->{'stashkey'};
 
-    return $scriptloader;
+    return $c->stash->{$key} if $c->stash->{$key};
+
+    my $scripts         = $self->{'scripts'};
+    $c->stash->{$key}   = HTML::ScriptLoader->new($scripts);
+
+    return $c->stash->{$key};
 }
 
 =head1 SEE ALSO

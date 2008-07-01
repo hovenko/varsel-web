@@ -188,19 +188,19 @@ sub scripts {
 
 =head2 loaded
 
-This is an accessor for an ARRAY of scripts that has been loaded and ready for
-use on a web site, with all dependencies resolved.
+This is an accessor for an ARRAY of scripts that has been loaded and ready
+for use on a web site, with all dependencies resolved.
 
 =cut
 
 sub loaded {
     my ( $self ) = @_;
-    return @{ $self->{'_loaded'} }
+    return @{ $self->{'_loaded'} };
 }
 
 =head2 available
 
-This is an accessor for a HASH of scripts that is available for this object.
+This is an accessor for a HASHREF of scripts that is available for this object.
 Dependencies have not been resolved.
 
 =cut
