@@ -24,7 +24,7 @@ has changed since last forecast email.
 
 =head1 METHODS
 
-=head2 cron
+=head2 process_all
 
 This action looks up all forecast notices that are valid for forecast updates.
 It will then fetch the forecast from YR for each of the notices and send out
@@ -32,7 +32,7 @@ emails to the users.
 
 =cut
 
-sub cron : Local {
+sub process_all : Private {
     my ( $self, $c ) = @_;
 
     my $model       = $c->model('ForecastNotice');
@@ -67,15 +67,14 @@ sub cron : Local {
             if $forecast;
     }
     
-    
-    $c->response->content_type('text/plain');
-    $c->response->body(Dumper {
+    my %response = (
         'procesed'      => \@processed,
         'forecasts'     => \@forecasts,
         'forecastdump'  => $c->stash->{'forecastdump'},
         'emaildump'     => $c->stash->{'emaildump'},
-    });
-    
+    );
+
+    return \%response;
 }
 
 =head2 handle_first_notice(C<$notice>)
@@ -365,6 +364,33 @@ sub get_forecast : Private {
     my $forecast    = $model->create(\%forecast_data);
     
     return $forecast;
+}
+
+=head2 cron
+
+This method is called from L<Catalyst::Plugin::Scheduler> to process all
+forecast requests.
+
+=cut
+
+sub cron : Local {
+    my ( $self, $c ) = @_;
+    return $c->forward('process_all');
+}
+
+=head2 manual
+
+This method can be called manually to process all forecast requests.
+This should only be called when debugging.
+
+=cut
+
+sub manual : Local {
+    my ( $self, $c ) = @_;
+    my $response_ref = $c->forward('process_all');
+
+    $c->response->content_type('text/plain');
+    $c->response->body(Dumper $response_ref);
 }
 
 =head2 dump
