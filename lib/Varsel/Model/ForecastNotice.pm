@@ -134,6 +134,8 @@ sub find_by_user {
 =head2 time_for_new(C<$notice>, C<$days>)
 
 This method returns a true value if the datetime is older than the interval.
+Returns a true value if there is no previous processed forecasts and it
+is within the lookahead time.
 Otherwise it returns false.
 
 Parameter C<$days> is optional and defaults to configuration value B<interval>.
@@ -145,6 +147,13 @@ sub time_for_new {
 
     $days           ||= $self->{'interval'};
     my $datetime    = $notice->processed;
+
+    if (!$datetime) {
+        my $lookahead      = DateTime->now('time_zone' => 'local');
+        $lookahead->add('days' => $self->{'lookahead'});
+
+        return 1 if DateTime->compare($lookahead, $notice->forecasttime) > 0;
+    }
 
     my $limit = DateTime->now('time_zone' => 'local');
     $limit->subtract('days' => $days);
