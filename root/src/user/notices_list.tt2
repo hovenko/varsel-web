@@ -18,10 +18,15 @@
                 <span class="note">Ukjent</span>
                 [% END %]
             </td>
-            <td>[% notice.forecasttime.strftime('%d. %B kl %H:%M') %]</td>
+            <td>
+                [% notice.forecasttime.strftime('%d. %B kl %H:%M') %]
+            </td>
             <td>
                 [% IF notice.processed %]
-                [% notice.processed.strftime('%d. %B kl %H:%M') %]
+                <a
+                    href="[% Catalyst.uri_for('/map/forecast' notice.id) %]"
+                    title="Se siste værvarsel"
+                >[% notice.processed.strftime('%d. %B kl %H:%M') %]</a>
                 [% ELSE %]
                 <span class="note">Ingen ennå *)</span>
                 [% END %]
