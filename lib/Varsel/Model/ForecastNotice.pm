@@ -100,6 +100,24 @@ sub find_ahead {
     return $notices->all;
 }
 
+=head2 find_by_id(C<$id>)
+
+Returns the forecast notice with a given ID, if any.
+
+=cut
+
+sub find_by_id {
+    my ( $self, $id ) = @_;
+
+    my $notices = $self->_model->search(
+        {
+            'id'    => $id,
+        }
+    );
+
+    return $notices->first;
+}
+
 =head2 find_by_user(C<$profile>)
 
 This finds all notices for a user that have not yet started or are still in
