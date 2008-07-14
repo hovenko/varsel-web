@@ -28,4 +28,10 @@
     [% END %]
 </ul>
 
+<p>
+    Du kan også se <a href="[%
+        Catalyst.uri_for('/map/forecast' notice.id)
+    %]">værvarselet på kartet</a>.
+</p>
+
 </div>

@@ -14,3 +14,8 @@ Det er fare for tåke.
 [% IF notice.address %]
 Du søkte etter "[% notice.address %]" på kartet.
 [% END %]
+
+Du kan også se værvarselet på kartet ved å åpne nettsiden [%
+        Catalyst.uri_for('/map/forecast' notice.id)
+    %]
+
