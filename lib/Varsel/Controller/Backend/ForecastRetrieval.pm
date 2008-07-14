@@ -269,9 +269,9 @@ sub _find_nearest_forecast {
     my %nearest         = ();
     
     my %types   = (
-        'YR::Locationforecast::Forecast::Full'      => 'full',
-        'YR::Locationforecast::Forecast::Precip'    => 'precip',
-        'YR::Locationforecast::Forecast::Symbol'    => 'symbol',
+        'Weather::YR::Locationforecast::Forecast::Full'      => 'full',
+        'Weather::YR::Locationforecast::Forecast::Precip'    => 'precip',
+        'Weather::YR::Locationforecast::Forecast::Symbol'    => 'symbol',
     );
     
     for my $forecast (@$forecasts_ref) {
