@@ -53,13 +53,18 @@
             var map         = new GMap2(map_elm);
             var latitude    = jQuery('#google-map-geo-lat').val();
             var longitude   = jQuery('#google-map-geo-long').val();
+            var text        = jQuery('#google-map-geo-text').val();
             
+            if (!text) {
+                text = 'Du vil motta værvarsel herfra';
+            }
+
             var point       = new GLatLng(latitude, longitude);
             map.setCenter(point, 12);
             
             var marker = new GMarker(point);
             map.addOverlay(marker);
-            marker.openInfoWindowHtml("Du vil motta værvarsel herfra");
+            marker.openInfoWindowHtml(text);
         }
     }
     
