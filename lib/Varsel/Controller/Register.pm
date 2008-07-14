@@ -346,15 +346,7 @@ sub profile : Local {
             # latitude and longitude for easier use in templates.
             $c->stash->{'reg'}->{'geo'} = $point;
 
-            # Send out the first email now, if forecast time is close
-            if ($c->model('ForecastNotice')->no_further_intervals($notice)) {
-                my $forecast = $c->forward(
-                    '/backend/forecastretrieval/handle_first_notice',
-                    [$notice]
-                );
-                $c->model('ForecastNotice')->set_forecaste($notice, $forecast)
-                    if $forecast;
-            }
+            $c->forward('check_notice_forecast', [$notice]);
         }
         else {
             # We have a new user
@@ -411,20 +403,47 @@ sub profile : Local {
             # The Email view reads from the stashed "email" value
             $c->forward( $c->view('Email') );
 
-            # Send out the first email now, if forecast time is close
-            if ($c->model('ForecastNotice')->no_further_intervals($notice)) {
-                my $forecast = $c->forward(
-                    '/backend/forecastretrieval/handle_first_notice',
-                    [$notice]
-                );
-                $c->model('ForecastNotice')->set_forecaste($notice, $forecast)
-                    if $forecast;
-            }
+            $c->forward('check_notice_forecast', [$notice]);
         }
     }
     else {
         $c->res->redirect( $self->{'default_step'} );
     }
+}
+
+=head2 check_notice_forecast
+
+This method checks if the time of the requested forecast notice is very close,
+and will then handle a "last forecast" notice if it is.
+
+If the forecast notice is within the limit of days to look for, it will handle
+it as a "first forecast" notice.
+
+=cut
+
+sub check_notice_forecast : Private {
+    my ( $self, $c, $notice ) = @_;
+
+    # Send out the last email now, if forecast time is very close
+    if ($c->model('ForecastNotice')->no_further_intervals($notice)) {
+        $notice->finished(1); # this gets updated when calling set_forecast
+        my $forecast = $c->forward(
+            '/backend/forecastretrieval/handle_last_notice',
+            [$notice]
+        );
+        $c->model('ForecastNotice')->set_forecast($notice, $forecast)
+            if $forecast;
+    }
+    elsif ($c->model('ForecastNotice')->time_for_new($notice)) {
+        my $forecast = $c->forward(
+            '/backend/forecastretrieval/handle_first_notice',
+            [$notice]
+        );
+        $c->model('ForecastNotice')->set_forecast($notice, $forecast)
+            if $forecast;
+    }
+
+    return $notice;
 }
 
 =head2 get_timestamp(B<STRING>)
