@@ -424,24 +424,25 @@ it as a "first forecast" notice.
 sub check_notice_forecast : Private {
     my ( $self, $c, $notice ) = @_;
 
+    my $forecast = undef;
+
     # Send out the last email now, if forecast time is very close
     if ($c->model('ForecastNotice')->no_further_intervals($notice)) {
         $notice->finished(1); # this gets updated when calling set_forecast
-        my $forecast = $c->forward(
+        $forecast = $c->forward(
             '/backend/forecastretrieval/handle_last_notice',
             [$notice]
         );
-        $c->model('ForecastNotice')->set_forecast($notice, $forecast)
-            if $forecast;
     }
     elsif ($c->model('ForecastNotice')->time_for_new($notice)) {
-        my $forecast = $c->forward(
+        $forecast = $c->forward(
             '/backend/forecastretrieval/handle_first_notice',
             [$notice]
         );
-        $c->model('ForecastNotice')->set_forecast($notice, $forecast)
-            if $forecast;
     }
+
+    $c->model('ForecastNotice')->set_forecast($notice, $forecast)
+        if $forecast;
 
     return $notice;
 }
