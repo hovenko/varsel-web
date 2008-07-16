@@ -28,7 +28,7 @@ A map with degrees as key and a human readable format for the direction as
 value.
 
 The wind direction is a number from 0 to 360
-(or 359.9, I don't really know, doesn't case, doesn't matter).
+(or 359.9, I don't really know, don't care, it doesn't matter).
 
 The default values are written in Norwegian bokmål.
 A direction is one of the following based on the direction the wind blows:
