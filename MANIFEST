@@ -5,12 +5,26 @@ Changes
 doc/Avhengigheter.txt
 doc/design/knutolav.png
 doc/locationforecast-example.xml
+doc/Prosjektdokumentasjon.odt
 doc/sql/110-profile.sql
 doc/sql/120-forecast.sql
 doc/sql/130-registered.sql
 doc/sql/140-forecast_notice.sql
 doc/sql/drop-tables.sql
+inc/Module/AutoInstall.pm
 inc/Module/Install.pm
+inc/Module/Install/AutoInstall.pm
+inc/Module/Install/Base.pm
+inc/Module/Install/Can.pm
+inc/Module/Install/Catalyst.pm
+inc/Module/Install/Fetch.pm
+inc/Module/Install/Include.pm
+inc/Module/Install/Makefile.pm
+inc/Module/Install/Metadata.pm
+inc/Module/Install/Scripts.pm
+inc/Module/Install/Win32.pm
+inc/Module/Install/WriteAll.pm
+lib/CatalystX/Model/ScriptLoader.pm
 lib/Varsel.pm
 lib/Varsel/Authentication/Credential/Exists.pm
 lib/Varsel/Authentication/Store/Network.pm
@@ -20,6 +34,7 @@ lib/Varsel/Controller/Backend/ForecastRetrieval.pm
 lib/Varsel/Controller/Backend/TemplateTester.pm
 lib/Varsel/Controller/Login.pm
 lib/Varsel/Controller/Logout.pm
+lib/Varsel/Controller/Map.pm
 lib/Varsel/Controller/Profile/Verify.pm
 lib/Varsel/Controller/Register.pm
 lib/Varsel/Controller/Root.pm
@@ -34,6 +49,7 @@ lib/Varsel/Model/Forecast/Email/First.pm
 lib/Varsel/Model/Forecast/Email/Last.pm
 lib/Varsel/Model/ForecastNotice.pm
 lib/Varsel/Model/GoogleMaps.pm
+lib/Varsel/Model/Javascripts.pm
 lib/Varsel/Model/Profile.pm
 lib/Varsel/Model/Profile/Email.pm
 lib/Varsel/Model/Profile/Register.pm
@@ -77,6 +93,8 @@ root/src/login.tt2
 root/src/login/form_login.tt2
 root/src/login/form_user.tt2
 root/src/login/widget.tt2
+root/src/map/forecast.tt2
+root/src/map/missing_forecast.tt2
 root/src/profile/verify/enter_code.tt2
 root/src/profile/verify/form_verify_code.tt2
 root/src/profile/verify/verified.tt2
@@ -129,6 +147,7 @@ t/controller_Backend-ForecastRetrieval.t
 t/controller_Backend-TemplateTester.t
 t/controller_Backend.t
 t/controller_Logout.t
+t/controller_Map.t
 t/controller_Profile-Verify.t
 t/controller_Register.t
 t/controller_Terms.t
@@ -142,6 +161,7 @@ t/model_Forecast-Email.t
 t/model_Forecast.t
 t/model_ForecastNotice.t
 t/model_GoogleMaps.t
+t/model_Javascripts.t
 t/model_Profile-Email.t
 t/model_Profile-Register.t
 t/model_Profile.t
