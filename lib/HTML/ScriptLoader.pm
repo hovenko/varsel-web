@@ -61,7 +61,7 @@ Recursive dependencies are not allowed and will throw an exception.
 
 Constructor.
 
-It will bless a HASHREF and return the reference to it.
+It will return the reference to a blessed object of this package.
 
 The C<\%attrs> parameter should contain a HASHREF
 with the scripts you want to use for your site.
@@ -217,8 +217,8 @@ Knut-Olav Hoven, E<lt>knut-olav@hoven.wsE<gt>
 
 =head1 LICENSE
 
-This library is free software, you can redistribute it and/or modify
-it under the terms of GPL version 2.
+This module is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
 
