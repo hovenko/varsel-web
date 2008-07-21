@@ -240,75 +240,6 @@ sub handle_last_notice : Private {
     return $forecast;
 }
 
-=head2 _find_nearest_forecast(C<$notice>, C<\@forecasts>)
-
-This method looks through all forecasts to find the one closest to the forecast
-notice request.
-
-There are three types of forecast objects:
-    Full
-    Precip
-    Symbol
-
-We want it all, so we find the ones closest from all these types.
-
-If it gets a forecast type which we don't know, we throw an exception.
-
-C<$forecasts_ref> is an array of forecasts, ordered by type of forecast object,
-then by date and time.
-
-This method returns a HASHREF of the nearest forecast of all the types listed
-above (keys are in lower case).
-
-=cut
-
-sub _find_nearest_forecast {
-    my ( $self, $notice, $forecasts_ref ) = @_;
-    
-    my $forecasttime    = $notice->forecasttime;
-    my %nearest         = ();
-    
-    my %types   = (
-        'Weather::YR::Locationforecast::Forecast::Full'      => 'full',
-        'Weather::YR::Locationforecast::Forecast::Precip'    => 'precip',
-        'Weather::YR::Locationforecast::Forecast::Symbol'    => 'symbol',
-    );
-    
-    for my $forecast (@$forecasts_ref) {
-        my $from    = $forecast->{'from'};
-        
-        my $cmp     = DateTime->compare($from, $forecasttime);
-        my $type    = $types{ref $forecast} || undef;
-        
-        if (!$type) {
-            my $error = sprintf('Unknown forecast type: %s', ref $forecast);
-            Catalyst::Exception->throw($error);
-        }
-        
-        if ($cmp == 0) {
-            # Perfect match on time
-            $nearest{$type} = $forecast;
-        }
-        elsif ($cmp > 0) {
-            # Very close. It's not perfect, but close enough.
-            # We set the forecast unless it has been set before for this type.
-            $nearest{$type} = $forecast unless $nearest{$type};
-        }
-        else {
-            # Not yet there. Since we don't bother to check if we are close
-            # "enough", like one hour until the requested time, we let it go...
-        }
-    }
-    
-    # We require all forecast data types to be there
-    for my $type (values %types) {
-        Catalyst::Exception->throw("Missing forecast data for type $type")
-            unless $nearest{$type};
-    }
-    
-    return \%nearest;
-}
-
 =head2 get_forecast(C<$notice>)
 
 This method fetches the forecasts based on the location of the forecast notice
@@ -324,44 +255,20 @@ Then it stores the forecast in the database and returns the reference to it.
 sub get_forecast : Private {
     my ( $self, $c, $notice ) = @_;
     
-    my %args        = (
+    my %geo        = (
         'longitude'     => $notice->longitude,
         'latitude'      => $notice->latitude,
     );
-    
-    my $forecasts_ref   = $c->model('YR::Locationforecast', \%args);
-    
-    my $forecast_ref    = $self->_find_nearest_forecast($notice, $forecasts_ref);
-    
-    
-    my $fc_full     = $forecast_ref->{'full'};
-    my $fc_symbol   = $forecast_ref->{'symbol'};
-    my $fc_precip   = $forecast_ref->{'precip'};
-    
-    my %forecast_data   = (
-        'fc_to'             => $fc_full->{'to'},
-        'fc_from'           => $fc_full->{'from'},
-        'latitude'          => $fc_full->{'location'}->{'latitude'},
-        'longitude'         => $fc_full->{'location'}->{'longitude'},
-        'altitude'          => $fc_full->{'location'}->{'altitude'},
-        'fog'               => $fc_full->{'fog'}->{'percent'},
-        'pressure'          => $fc_full->{'pressure'}->{'value'},
-        'clouds_low'        => $fc_full->{'clouds'}->{'low'}->{'percent'},
-        'clouds_medium'     => $fc_full->{'clouds'}->{'medium'}->{'percent'},
-        'clouds_high'       => $fc_full->{'clouds'}->{'high'}->{'percent'},
-        'cloudiness'        => $fc_full->{'cloudiness'}->{'percent'},
-        'winddirection'     => $fc_full->{'winddirection'}->{'deg'},
-        'windspeed'         => $fc_full->{'windspeed'}->{'mps'},
-        'temp_unit'         => $fc_full->{'temperature'}->{'unit'},
-        'temp_value'        => $fc_full->{'temperature'}->{'value'},
-        'symbol_no'         => $fc_symbol->{'number'},
-        'symbol_name'       => $fc_symbol->{'name'},
-        'precip_unit'       => $fc_precip->{'unit'},
-        'precip_value'      => $fc_precip->{'value'},
+
+    my $yr_model        = $c->model('YR::Locationforecast');
+
+    my $forecast_ref    = $yr_model->find_nearest_forecast(
+        $notice->forecasttime,
+        \%geo
     );
     
     my $model       = $c->model('Forecast');
-    my $forecast    = $model->create(\%forecast_data);
+    my $forecast    = $model->create($forecast_ref);
     
     return $forecast;
 }
