@@ -84,16 +84,18 @@ sub rss2 : Private {
             $forecast->{'fc_from'}->strftime('%a %d. %b kl %H:%M')
         );
         
+        my $description_fmt = '%s, %d grader og %d %s nedbør';
+
+        utf8::encode($title);
+        utf8::encode($description_fmt);
+
         my $description = sprintf(
-            '%s, %d grader og %d %s nedbør',
+            $description_fmt,
             $forecast->{'symbol_string'},
             $forecast->{'temp_value'},
             $forecast->{'precip_value'},
             $forecast->{'precip_unit'}
         );
-
-        utf8::encode($title);
-        utf8::encode($description);
 
         $rss->add_item(
             'title'         => $title,
@@ -106,9 +108,7 @@ sub rss2 : Private {
 
 sub update_feed_description : Private {
     my ( $self, $rss, $desc) = @_;
-    my $copy = $desc;
-    utf8::encode($copy);
-    $rss->channel('description' => $copy);
+    $rss->channel('description' => $desc);
 }
 
 =head2 print(B<$c>, B<$rss>)

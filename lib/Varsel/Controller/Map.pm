@@ -46,6 +46,9 @@ sub forecast : Local Args(1) {
     $c->stash->{'template'}     = 'map/forecast.tt2';
 }
 
+sub find : Local {
+    my ( $self, $c ) = @_;
+}
 
 =head1 AUTHOR
 

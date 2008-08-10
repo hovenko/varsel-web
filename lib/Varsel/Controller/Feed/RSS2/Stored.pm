@@ -100,9 +100,11 @@ sub fetch_feed : Private {
     my $rss     = $c->forward('/feed/rss2/rss2', [\%geo, @times]);
 
     my $feed_name   = $feed->name;
+    my $feed_desc   = "Værvarsel fra $feed_name";
+    utf8::encode($feed_desc);
     $self->update_feed_description(
         $rss,
-        "Værvarsel fra $feed_name"
+        $feed_desc
     ) if $feed_name;
 
     my $content = $rss->as_string;
