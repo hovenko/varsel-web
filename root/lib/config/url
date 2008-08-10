@@ -9,6 +9,7 @@
    site.url.img = {
      link_ext       = "${base}static/gfx/link-ext.gif"
      link_home10    = "${base}static/gfx/link-home10.gif"
+     link_rss       = "${base}static/gfx/rss-icon.jpg"
      sky            = "${base}static/gfx/sky.gif"
      favicon        = "${base}favicon.ico"
    }

@@ -5,6 +5,15 @@
         Velkommen [% user.firstname %]. Vi håper du setter pris på tjensten vi tilbyr deg og at du vil
         fortsette å bruke den.
     </p>
+
+    <p class="indent">
+        <strong>Nyhet!</strong>
+        Nå kan du motta oppdatert værvarsel som
+        <a href="[%
+            Catalyst.uri_for('/map/find')
+        %]" class="rss">RSS-feed</a> for der du bor!
+    </p>
+
     <p>
         Du kan nå motta værvarslinger uten å registrere flere opplysninger om
         deg selv.

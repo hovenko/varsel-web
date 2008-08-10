@@ -1,4 +1,15 @@
 <div id="velkommen">
+    <p>
+        <strong>Nyhet!</strong>
+        Nå kan du motta oppdatert værvarsel som
+        <a href="[%
+            Catalyst.uri_for('/map/find')
+        %]" class="rss">RSS-feed</a> for der du bor!
+        Krever ingen registrering!
+    </p>
+
+    <br />
+
     <h2>Meld om varsling</h2>
 
     <p>

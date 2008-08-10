@@ -48,6 +48,28 @@ sub forecast : Local Args(1) {
 
 sub find : Local {
     my ( $self, $c ) = @_;
+
+    if ($c->req->method =~ /^post$/i) {
+        my $geo         = $c->req->body_parameters->{'geo'};
+        my $geosearch   = $c->req->body_parameters->{'geosearch'};
+        
+        my $precision = ($c->user ? undef : 3);
+        my $point   = $c->model('GoogleMaps')
+            ->extract_geo($geo, $precision);
+
+        $c->stash->{'geosearch'}    = $geosearch;
+        $c->stash->{'geo'}          = $point;
+        $c->stash->{'template'}     = 'map/find/service.tt2';
+    }
+    else {
+        $c->stash->{'template'} = 'map/find.tt2';
+    }
+    
+    $c->model('Javascripts')->add_script(qw/
+        google-maps
+        google-maps-loader
+    /);
+
 }
 
 =head1 AUTHOR

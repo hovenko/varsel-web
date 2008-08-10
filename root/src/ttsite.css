@@ -40,6 +40,10 @@ a.hjem {
     padding-left                                    : 13px;
 }
 
+.rss {
+    background                                      : url([% site.url.img.link_rss %]) center left no-repeat;
+    padding-left                                    : 18px;
+}
 
 
 
@@ -233,6 +237,10 @@ button,
 .note,
 .note * {
     font-size                                       : 11px;
+}
+
+.indent {
+    margin-left                                     : 20px;
 }
 
 .input.help {

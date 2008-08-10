@@ -47,7 +47,7 @@ sub javascript_url {
     return sprintf($self->{'url'}, $self->{'key'});
 }
 
-=head2 extract_geo(C<$geo>)
+=head2 extract_geo(C<$geo>, C<$decimals)
 
 This method extracts the latitude and longitude from the geo coordinates
 from a stringified Google Map point.
@@ -59,14 +59,26 @@ The format of C<$geo> is like this: B<< (<decimal>, <decimal>) >>
 Example:
  (59.589106172938294, 10.213165283203125)
 
+If B<$decimals> is a positive number, the coordinate values will loose
+precision and be formatted with the number of decimals. If the parameter is not
+given you will get all the decimals.
+
 =cut
 
 sub extract_geo {
-    my ( $self, $geo ) = @_;
+    my ( $self, $geo, $decimals ) = @_;
     
     my $RE_DECIMAL = qr{\d+ \. \d*}x;
     
     my ($lat, $long) = $geo =~ m{\A \( ($RE_DECIMAL) , \s* ($RE_DECIMAL) \) \z}xms;
+
+    if ($decimals && $decimals > 0) {
+        my $multi = 10 ** $decimals;
+        $lat    = $lat  * $multi;
+        $long   = $long * $multi;
+        $lat    = int($lat  + .5 * ($lat  <=> 0)) / $multi;
+        $long   = int($long + .5 * ($long <=> 0)) / $multi;
+    }
     
     my $point = {
         'latitude'  => $lat,
