@@ -3,7 +3,10 @@ package Varsel::Model::Forecast;
 use strict;
 use warnings;
 
-use base qw/Catalyst::Model Class::Accessor::Fast/;
+use base qw/
+    Catalyst::Model
+    Class::Accessor::Fast
+/;
 
 =head1 NAME
 
@@ -22,63 +25,10 @@ Do not include the C<Varsel::Model> prefix in the package name.
 
 Defaults to C<YRDB::Forecast>.
 
-=head2 directions
-
-A map with degrees as key and a human readable format for the direction as
-value.
-
-The wind direction is a number from 0 to 360
-(or 359.9, I don't really know, don't care, it doesn't matter).
-
-The default values are written in Norwegian bokmål.
-A direction is one of the following based on the direction the wind blows:
-    nord
-    nord-øst
-    sør-øst
-    sør
-    sør-vest
-    vest
-    nord-vest
-
-=head2 symbols
-
-A map with symbol names in a human readable format.
-
-The default values are written in Norwegian bokmål. The source of information
-is U<< http://www.yr.no/om_yrno/1.1940495 >>.
-
 =cut
 
 __PACKAGE__->config(
     'dbmodel'       => 'YRDB::Forecast',
-    'directions'    => {
-        0               => 'nord',
-        22.5            => 'nord-øst',
-        67.5            => 'øst',
-        112.5           => 'sør-øst',
-        157.5           => 'sør',
-        202.5           => 'sør-vest',
-        247.5           => 'vest',
-        292.5           => 'nord-vest',
-        337.5           => 'nord',
-    },
-    'symbols'       => {
-        1               => 'sol/klarvær',
-        2               => 'lettskyet',
-        3               => 'delvis skyet',
-        4               => 'skyet',
-        5               => 'regnbyger',
-        6               => 'regnbyger med torden',
-        7               => 'sluddbyger',
-        8               => 'snøbyger',
-        9               => 'regn',
-        10              => 'kraftig regn',
-        11              => 'regn og torden',
-        12              => 'sludd',
-        13              => 'snø',
-        14              => 'snø og torden',
-        15              => 'tåke',
-    }
 );
 
 =head1 METHODS
@@ -115,16 +65,11 @@ See configuration parameter B<directions> for degrees and strings.
 sub filter_winddirection {
     my ( $self, $forecast ) = @_;
     
-    my %directions  = %{ $self->{'directions'} };
+    my $c       = $self->_context;
+    my $string  = $c->model('YR::Forecast::WindDirection::Stringify')
+        ->filter($forecast->winddirection);
     
-    my $current     = undef;
-    
-    while (my ($deg, $string) = each %directions) {
-        $current    = $string
-            if $forecast->winddirection > $deg;
-    }
-    
-    $forecast->{'winddirection_string'} = $current;
+    $forecast->{'winddirection_string'} = $string;
     return $forecast;
 }
 
@@ -133,16 +78,14 @@ sub filter_winddirection {
 This method filters the symbol of the forecast to put a human friendly string
 on it.
 
-See configuration parameter B<symbols> for symbol numbers and strings.
-
 =cut
 
 sub filter_symbol {
     my ( $self, $forecast ) = @_;
-    
-    my %symbols     = %{ $self->{'symbols'} };
-    
-    my $string      = $symbols{ $forecast->symbol_no };
+
+    my $c       = $self->_context;
+    my $string  = $c->model('YR::Forecast::Symbol::Stringify')
+        ->filter($forecast->symbol_no);
     
     $forecast->{'symbol_string'}    = $string;
     return $forecast;
@@ -333,11 +276,15 @@ sub ACCEPT_CONTEXT {
     
     my $model = $c->model($self->{'dbmodel'});
     $self->_model($model);
+    $self->_context($c);
     return $self;
 }
 
 # Accessor for the model object for the forecast database table
 __PACKAGE__->mk_accessors(qw/_model/);
+
+# Accessor for the context object.
+__PACKAGE__->mk_accessors(qw/_context/);
 
 =head1 AUTHOR
 
