@@ -38,6 +38,9 @@ my $RE_POINT = qr{\d+ \. \d+}x;
 
 =head2 map($geo) 
 
+This fetches the forecast for a location by the latitude and longitude.
+This can be used by anonymous users.
+
 =cut
 
 sub map : Path Args(1) {
