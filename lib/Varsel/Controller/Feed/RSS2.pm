@@ -79,11 +79,7 @@ sub rss2 : Private {
     );
 
     for my $forecast (@forecasts) {
-        my $title       = sprintf(
-            '%s',
-            $forecast->{'fc_from'}->strftime('%a %d. %b kl %H:%M')
-        );
-        
+        my $title   = $forecast->{'fc_from'}->strftime('%a %d. %b kl %H:%M');
         my $description_fmt = '%s, %d grader og %d %s nedbør';
 
         utf8::encode($title);
@@ -96,6 +92,7 @@ sub rss2 : Private {
             $forecast->{'precip_value'},
             $forecast->{'precip_unit'}
         );
+
 
         $rss->add_item(
             'title'         => $title,
@@ -121,6 +118,10 @@ It sets the content type and body on the Catalyst response object.
 
 sub print : Private {
     my ( $self, $c, $content ) = @_;
+
+    # UTF8 handling in perl is crap
+    utf8::decode($content);
+    utf8::encode($content);
 
     $c->response->content_type('application/xml');
     $c->response->body($content);
