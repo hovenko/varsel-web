@@ -27,7 +27,7 @@
 	        </p>
         </div>
         <div id="google-map-crosshair">
-	        <img src="[% Catalyst.uri_for('/static/gfx/crosshair.gif') %]" alt="">
+	        <img src="[% Catalyst.uri_for('/static/gfx/crosshair.gif') %]" alt="" />
 	    </div>
         <p class="note">
 	        Karttjenesten som brukes heter
