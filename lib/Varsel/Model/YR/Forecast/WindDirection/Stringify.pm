@@ -69,6 +69,8 @@ sub filter {
             if $winddirection >= $deg;
     }
 
+    utf8::encode($current);
+
     return $current;
 }
 

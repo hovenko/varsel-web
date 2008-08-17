@@ -88,10 +88,12 @@ sub rss2 : Private {
 
         #utf8::encode($title);
         #utf8::encode($description_fmt);
+        my $symbol_string = $forecast->{'symbol_string'};
+        utf8::decode($symbol_string);
 
         my $description = sprintf(
             $description_fmt,
-            $forecast->{'symbol_string'},
+            $symbol_string,
             $forecast->{'temp_value'},
             $forecast->{'precip_value'},
             $forecast->{'precip_unit'}
