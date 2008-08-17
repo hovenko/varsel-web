@@ -58,7 +58,7 @@ sub stored : Path Args(1) {
         unless $feed;
 
     my $now     = DateTime->now('time_zone' => 'local');
-    my $expires = $feed->processed;
+    my $expires = $feed->processed || $now;
     $expires->add('seconds' => $self->{'lifetime'});
 
     my $need_update = 0;
@@ -67,6 +67,7 @@ sub stored : Path Args(1) {
 
     if ($need_update) {
         my $content = $c->forward('fetch_feed', [$feed]);
+        utf8::decode($content);
         $feed->xmlcontent($content);
         $feed->processed($now);
     }
@@ -100,12 +101,15 @@ sub fetch_feed : Private {
     my $rss     = $c->forward('/feed/rss2/rss2', [\%geo, @times]);
 
     my $feed_name   = $feed->name;
-    my $feed_desc   = "Værvarsel fra $feed_name";
+
+    my $feed_desc   = "Værvarsel for de neste tre dagene fra $feed_name";
+    my $feed_title  = "Værvarsel feed $feed_name";
+
     utf8::encode($feed_desc);
-    $self->update_feed_description(
-        $rss,
-        $feed_desc
-    ) if $feed_name;
+    utf8::encode($feed_title);
+
+    $rss->channel('title'       => $feed_title) if $feed_name;
+    $rss->channel('description' => $feed_desc) if $feed_name;
 
     my $content = $rss->as_string;
 

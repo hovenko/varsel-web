@@ -46,6 +46,16 @@ sub forecast : Local Args(1) {
     $c->stash->{'template'}     = 'map/forecast.tt2';
 }
 
+=head2 find
+
+This method presents a map that the user can navigate or search in to find
+a location they want forecasts from.
+
+After finding their location they can continue to the registration process or
+get an RSS 2 feed for the next couple of days.
+
+=cut
+
 sub find : Local {
     my ( $self, $c ) = @_;
 
@@ -66,7 +76,6 @@ sub find : Local {
     }
     
     $c->model('Javascripts')->add_script(qw/
-        google-maps
         google-maps-loader
     /);
 

@@ -7,11 +7,11 @@
     </p>
 
     <p class="indent">
-        <strong>Nyhet!</strong>
-        Nå kan du motta oppdatert værvarsel som
+        <strong class="rss">Nyhet!</strong>
+        Nå kan du motta værvarsel for de neste dagene som
         <a href="[%
             Catalyst.uri_for('/map/find')
-        %]" class="rss">RSS-feed</a> for der du bor!
+        %]">RSS-feed</a>!
     </p>
 
     <p>
@@ -23,10 +23,7 @@
 </div>
 
 <div class="outer-box">
-
-
-<div id="varsle-reg" class="inner-box">
-    [% PROCESS register/form_email.tt2 %]
-</div>
-
+    <div id="varsle-reg" class="inner-box">
+        [% PROCESS register/form_email.tt2 %]
+    </div>
 </div>

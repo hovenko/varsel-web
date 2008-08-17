@@ -33,6 +33,24 @@ sub notices : Path {
     $c->stash->{'template'} = 'user/notices.tt2';
 }
 
+=head2 feeds
+
+This action lists all the users registered feeds.
+
+=cut
+
+sub feeds : Local {
+    my ( $self, $c ) = @_;
+
+    my $user    = $c->user;
+
+    my @feeds = $c->model('ForecastFeed')
+        ->find_by_user($user);
+
+    $c->stash->{'feeds'}    = \@feeds;
+    $c->stash->{'template'} = 'user/feeds.tt2';
+}
+
 =head2 auto
 
 This method makes sure only authenticated users are allowed access to this

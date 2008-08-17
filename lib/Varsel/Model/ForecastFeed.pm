@@ -70,6 +70,30 @@ sub find_by_id {
     return $feeds->first;
 }
 
+=head2 find_by_user(C<$profile>)
+
+This finds all feeds that a user has registered.
+
+Parameter C<$profile> can be either a DBIC entity reference or a profile ID.
+
+=cut
+
+sub find_by_user {
+    my ( $self, $profile ) = @_;
+
+    my $uid     = ref $profile ? $profile->id : $profile;
+    my $now     = DateTime->now('time_zone' => 'local');
+
+    my $feeds = $self->_model->search(
+        {
+            'profile'       => $uid,
+            'hidden'        => 0,
+        }
+    );
+
+    return $feeds->all;
+}
+
 =head2 update(B<$feed>)
 
 This updates the feed in the database.

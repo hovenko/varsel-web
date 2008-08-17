@@ -57,7 +57,7 @@
         
         <p>
             <span class="button">
-                <input type="submit" value="Gå videre for å velge tjeneste &raquo;" />
+                <input type="submit" value="Gå videre for å få feed &raquo;" />
             </span>
         </p>
     </form>

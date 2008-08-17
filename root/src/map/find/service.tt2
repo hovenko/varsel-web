@@ -2,15 +2,27 @@
 [% USE date(locale = 'nb_NO') -%]
 
 <div id="velkommen">
-    <h2>Velg hvilken tjeneste du vil benytte deg av</h2>
-
-    <p>
-        Du kan fortsette til registreringssidene for å be om værvarsel på e-post.
-    </p>
+<!--    <h2>Velg hvilken tjeneste du vil benytte deg av</h2> -->
+<!--
+    <div>
+        <form action="[% Catalyst.uri_for('/register/place') %]" method="post">
+            <p>
+                Du kan fortsette til
+                registreringssidene for å be om værvarsel på e-post.
+                <input type="hidden"
+                        name="reg.geo"
+                        value="([% geo.longitude %], [% geo.latitude %])" />
+                <span class="button">
+                    <input type="submit" value="Fortsett registreringen" />
+                </span>
+            </p>
+        </form>
+    </div>
+-->
 
     [% IF Catalyst.user %]
     <div class="indent">
-        <form action="[% Catalyst.uri_for('/register/feed') %]" method="post">
+        <form action="[% Catalyst.uri_for('/feed/register') %]" method="post">
             <p>
                 Her kan du opprette en <span class="rss">RSS-feed</span>.
                 Du vil da motta oppdatert værvarsel for tre dager fremover.
@@ -20,13 +32,16 @@
             <p>
                 <input type="hidden" name="latitude"  value="[% geo.latitude %]" />
                 <input type="hidden" name="longitude" value="[% geo.longitude %]" />
-                <input type="submit" name="submit" value="Gi meg feed nå!" />
+                <input type="hidden" name="address" value="[% geosearch |html %]" />
+                <span class="button">
+                    <input type="submit" name="submit" value="Registrer feed" />
+                </span>
             </p>
         </form>
     </div>
     [% ELSE %]
     <p>
-        Prøv vår nye
+        Prøv vår
         <a href="[%
                 Catalyst.uri_for('/feed/rss2/map/')
                 _ geo.latitude
@@ -66,4 +81,10 @@
         </div>
     </div>
 </div>
+
+<p class="button">
+    <a href="[%
+        Catalyst.uri_for('/map/find')
+    %]">Tilbake for å velge nytt sted</a>
+</p>
 

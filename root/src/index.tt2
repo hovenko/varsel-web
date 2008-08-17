@@ -1,11 +1,11 @@
 <div id="velkommen">
     <p>
-        <strong>Nyhet!</strong>
-        Nå kan du motta oppdatert værvarsel som
+        <strong class="rss">Nyhet!</strong>
+        Nå kan du motta værvarsel for de neste dagene som
         <a href="[%
             Catalyst.uri_for('/map/find')
-        %]" class="rss">RSS-feed</a> for der du bor!
-        Krever ingen registrering!
+        %]">RSS-feed</a>!
+        <em>Krever ingen registrering.</em>
     </p>
 
     <br />
@@ -14,8 +14,8 @@
 
     <p>
         Hei, ukjent. Dersom du logger inn eller oppretter konto her kan du be om
-        varsel om vær på en gitt dato fram i tid. Du blir da en av de første til
-        å motta værvarselet.
+        varsel om vær på en gitt dato fram i tid. Du blir da en av de første som
+        får vite værvarselet.
     </p>
 </div>
 

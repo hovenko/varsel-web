@@ -1,0 +1,57 @@
+[% IF feeds %]
+<p>
+    Du kan <a href="[%
+        Catalyst.uri_for('/map/find')
+    %]">registrere nye feeds her</a>.
+</p>
+<table>
+    <thead>
+        <tr>
+            <th>Navn</th>
+            <th>Registrert</th>
+            <th>Sist oppdatert</th>
+            <th>Lenke</th>
+            <!-- <th></th> -->
+        </tr>
+    </thead>
+    <tbody>
+        [% FOREACH feed IN feeds %]
+        <tr>
+            <td>
+                [% IF feed.name %]
+                [% feed.name %]
+                [% ELSE %]
+                <span class="note">Ukjent</span>
+                [% END %]
+            </td>
+            <td>
+                [% feed.registered.strftime('%d. %B kl %H:%M') %]
+            </td>
+            <td>
+                [% feed.processed.strftime('%d. %B kl %H:%M') %]
+            </td>
+            <td>
+                <a class="rss" rel="feed" href="[%
+                        Catalyst.uri_for('/feed/rss2/stored/' _ feed.id)
+                    %]" title="Lenke til RSS2-feed">feed</th>
+            </td>
+            <!--<td><a href="[% Catalyst.uri_for('/user/unreg' notice.id) %]">Avregistrer</a></td>-->
+        </tr>
+        [% END %]
+    </tbody>
+</table>
+<div>
+    <p class="note">
+        Bemerk at andre kan bruke feeds du har registrert
+        så lenge de kjenner adressen til feeden.
+        Det betyr at en feed kan være oppdatert og i bruk
+        selv om du ikke bruker den selv.
+    </p>
+</div>
+[% ELSE %]
+<p>
+    Ingen registrerte feeds.
+    Du kan registrere en
+    <a href="[% Catalyst.uri_for('/map/find') %]">ny feed her</a>.
+</p>
+[% END %]

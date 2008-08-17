@@ -53,14 +53,16 @@ sub rss2 : Private {
 
     my $rss = XML::RSS->new(version => '2.0');
 
+    my $title           = 'Værvarsel feed';
     my $description     = 'Værvarsel for de neste tre dagene';
     my $pubDate         = $now->strftime('%a, %d %b %Y %H:%M:%S');
 
+    utf8::encode($title);
     utf8::encode($description);
     utf8::encode($pubDate);
 
     $rss->channel(
-        'title'         => 'Varsel feed',
+        'title'         => $title,
         'link'          => $c->uri_for('/'),
         'language'      => 'no',
         'description'   => $description,
@@ -93,19 +95,22 @@ sub rss2 : Private {
             $forecast->{'precip_unit'}
         );
 
+        my $guid        = sprintf(
+            "%s/%s+%s/%s",
+            $c->uri_for('/feed/rss2'),
+            $geo->{'latitude'},
+            $geo->{'longitude'},
+            $forecast->{'fc_from'},
+        );
 
         $rss->add_item(
             'title'         => $title,
+            'guid'          => $guid,
             'description'   => $description,
         );
     }
 
     return $rss;
-}
-
-sub update_feed_description : Private {
-    my ( $self, $rss, $desc) = @_;
-    $rss->channel('description' => $desc);
 }
 
 =head2 print(B<$c>, B<$rss>)
