@@ -31,7 +31,7 @@ use Catalyst qw/
     PageCache
 /;
 
-our $VERSION = '0.15';
+our $VERSION = '0.20';
 
 # Configure the application. 
 #

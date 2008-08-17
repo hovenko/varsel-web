@@ -1,5 +1,10 @@
 This file documents the revision history for Perl extension Varsel.
 
+0.20  Sun Aug 17 20:58:19 2008
+        - Added RSS 2 feeds of weather forecast for the next couple of days.
+        - Using the new Weather::YR library.
+
+
 0.15  Wed Apr 30 22:13:58 2008
         - Updated tests, some were outdated and others had redirects or
             required logged in users
