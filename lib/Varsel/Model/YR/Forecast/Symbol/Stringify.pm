@@ -58,8 +58,6 @@ sub filter {
 
     my $string      = $symbols{$symbol_no};
 
-    utf8::encode($string);
-
     return $string;
 }
 
