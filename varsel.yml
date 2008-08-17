@@ -42,6 +42,12 @@ authentication:
 
 locale: nb_NO
 
+page_cache:
+    expires:            600 # 10 minutes
+    set_http_headers:   1
+    auto_cache:
+        - '/feed/rss2/map/.*'
+
 Model::GoogleMaps:
     key:    "ABQIAAAAA3EdiJ5OJBl-sShPqrkj5RTJQa0g3IQ9GZqIMmInSLzwtGDKaBR6oAunersCU9cry7_-imOexnZ8_g"
 

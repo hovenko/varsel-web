@@ -20,10 +20,15 @@ use Catalyst qw/
     Authentication
     Authorization::Roles
 
+    Cache::FastMmap
+
     Scheduler
+
     Session
     Session::Store::FastMmap
     Session::State::Cookie
+
+    PageCache
 /;
 
 our $VERSION = '0.15';

@@ -46,7 +46,9 @@ sub rss2 : Private {
             = $c->model('YR::Forecast::WindDirection::Stringify')
                 ->filter($forecast_ref->{'winddirection'});
 
-        push @forecasts, $forecast_ref;
+        # We want it backwards,
+        # so that new items naturally can be added to the top
+        unshift @forecasts, $forecast_ref;
     }
 
     my $now = DateTime->now(time_zone => 'local');
