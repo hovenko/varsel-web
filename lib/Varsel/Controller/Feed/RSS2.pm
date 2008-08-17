@@ -59,9 +59,9 @@ sub rss2 : Private {
     my $description     = 'Værvarsel for de neste tre dagene';
     my $pubDate         = $now->strftime('%a, %d %b %Y %H:%M:%S');
 
-    utf8::encode($title);
-    utf8::encode($description);
-    utf8::encode($pubDate);
+    #utf8::encode($title);
+    #utf8::encode($description);
+    #utf8::encode($pubDate);
 
     $rss->channel(
         'title'         => $title,
@@ -86,8 +86,8 @@ sub rss2 : Private {
         my $title   = $forecast->{'fc_from'}->strftime('%a %d. %b kl %H:%M');
         my $description_fmt = '%s, %d grader og %d %s nedbør';
 
-        utf8::encode($title);
-        utf8::encode($description_fmt);
+        #utf8::encode($title);
+        #utf8::encode($description_fmt);
 
         my $description = sprintf(
             $description_fmt,
@@ -127,8 +127,8 @@ sub print : Private {
     my ( $self, $c, $content ) = @_;
 
     # UTF8 handling in perl is crap
-    utf8::decode($content);
-    utf8::encode($content);
+    #utf8::decode($content);
+    #utf8::encode($content);
 
     $c->response->content_type('application/xml');
     $c->response->body($content);

@@ -67,7 +67,7 @@ sub stored : Path Args(1) {
 
     if ($need_update) {
         my $content = $c->forward('fetch_feed', [$feed]);
-        utf8::decode($content);
+        #utf8::decode($content);
         $feed->xmlcontent($content);
         $feed->processed($now);
     }
@@ -105,8 +105,8 @@ sub fetch_feed : Private {
     my $feed_desc   = "Værvarsel for de neste tre dagene fra $feed_name";
     my $feed_title  = "Værvarsel feed $feed_name";
 
-    utf8::encode($feed_desc);
-    utf8::encode($feed_title);
+    #utf8::encode($feed_desc);
+    #utf8::encode($feed_title);
 
     $rss->channel('title'       => $feed_title) if $feed_name;
     $rss->channel('description' => $feed_desc) if $feed_name;
