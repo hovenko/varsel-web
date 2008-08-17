@@ -43,7 +43,7 @@ authentication:
 locale: nb_NO
 
 page_cache:
-    expires:            600 # 10 minutes
+    expires:            600
     set_http_headers:   1
     auto_cache:
         - '/feed/rss2/map/.*'
