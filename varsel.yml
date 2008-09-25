@@ -55,6 +55,10 @@ Model::Profile::Email:
     from:       'Værvarsel <hovenko@linpro.no>'
     subject:    'Velkommen til værvarsling rett hjem'
 
+Model::Profile::Email::Password:
+    from:       'Værvarsel <hovenko@linpro.no>'
+    subject:    'Gjenopprett ditt passord'
+
 Model::YRDB:
     connect_info:
       - dbi:mysql:varsel
@@ -80,20 +84,20 @@ Model::Javascripts:
             params:
                 file:       api
                 v:          2
-                key:        "ABQIAAAAA3EdiJ5OJBl-sShPqrkj5RTJQa0g3IQ9GZqIMmInSLzwtGDKaBR6oAunersCU9cry7_-imOexnZ8_g"
+                key:        "ABQIAAAAA3EdiJ5OJBl-sShPqrkj5RREhhC8tNWoG_zMowBWmZvKBfnnSxTaPspMq2OQLWi8wMdNCatdTuhdsA"
         "google-maps-loader":
-            uri:        "/static/js/google-map-loader.js"
+            uri:        "/varsel-trunk/static/js/google-map-loader.js"
             deps:
                 -   "google-maps"
                 -   jquery
         "ui-datepicker":
-            uri:        "/static/js/ui.datepicker.js"
+            uri:        "/varsel-trunk/static/js/ui.datepicker.js"
             deps:
                 -   jquery
         "jquery":
-            uri:        "/static/js/jquery-1.2.3.pack.js"
+            uri:        "/varsel-trunk/static/js/jquery-1.2.3.pack.js"
         "register":
-            uri:        "/static/js/register.js"
+            uri:        "/varsel-trunk/static/js/register.js"
             deps:
                 -   jquery
 

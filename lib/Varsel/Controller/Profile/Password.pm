@@ -55,6 +55,7 @@ sub lost_do : Local {
         $c->model('Profile')->update($profile);
 
         $c->stash->{'token'}    = $token;
+        $c->stash->{'email'}    = $email;
 
         my $emailcontent    = $c->model('Profile::Email::Password')
             ->lost_password_email(

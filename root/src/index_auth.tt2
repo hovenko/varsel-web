@@ -24,6 +24,7 @@
 
 <div class="outer-box">
     <div id="varsle-reg" class="inner-box">
+        [% form_action = Catalyst.uri_for('/register/forecast') %]
         [% PROCESS register/form_email.tt2 %]
     </div>
 </div>

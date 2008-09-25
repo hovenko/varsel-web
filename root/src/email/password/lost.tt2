@@ -1,7 +1,7 @@
 Du har mottatt denne e-posten fordi du har bedt om nytt passord på Varsel.
 
 For å sette et nytt passord skriver du inn verifiseringskoden på
-nettsiden [% Catalyst.uri_for('/profile/password/token' email) %].
+nettsiden [% Catalyst.uri_for('/profile/password/reset' email) %].
 
 Verifiseringskoden du må bruke er:
  [% token %]

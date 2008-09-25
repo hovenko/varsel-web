@@ -133,15 +133,15 @@ sub end : ActionClass('RenderView') {
     $c->forward('prepare_js_register');
 
     # Loading the maps
-    if (grep { $_ eq $render_step } @JS_STEPS) {
+    #if (grep { $_ eq $render_step } @JS_STEPS) {
         $c->model('Javascripts')->add_script(qw/
             google-maps
             google-maps-loader
         /);
-    }
+    #}
     
     # Loading the datetime picker
-    if (grep { $_ eq $render_step } @JS_DATE_STEPS) {
+    #if (grep { $_ eq $render_step } @JS_DATE_STEPS) {
         $c->model('Javascripts')->add_script(qw/
             ui-datepicker
         /);
@@ -150,7 +150,7 @@ sub end : ActionClass('RenderView') {
             'url'   => $c->uri_for('/static/css/ui.datepicker.css'),
         );
         push @{ $c->stash->{'stylesheets'} }, \%css_ui_datepicker;
-    }
+    #}
 
     $c->stash->{'form_action'}  = $c->uri_for(
         sprintf(
