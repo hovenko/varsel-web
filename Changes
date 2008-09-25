@@ -1,5 +1,10 @@
 This file documents the revision history for Perl extension Varsel.
 
+0.21  Thu Sep 25 23:44:13 2008
+        - Added support for resetting the password for a user.
+        - Fix: the registration form action was not set on the frontpage.
+
+
 0.20  Sun Aug 17 20:58:19 2008
         - Added RSS 2 feeds of weather forecast for the next couple of days.
         - Using the new Weather::YR library.
