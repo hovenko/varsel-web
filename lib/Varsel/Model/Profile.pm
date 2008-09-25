@@ -64,6 +64,12 @@ sub create {
     return $profile;
 }
 
+sub update {
+    my ( $self, $profile ) = @_;
+
+    $profile->update;
+}
+
 =head2 find_by_email(B<$email>)
 
 This looks up a user by its email address.

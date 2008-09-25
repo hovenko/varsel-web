@@ -1,4 +1,4 @@
-<form action="[% Catalyst.uri_for('/register/email') %]" method="post">
+<form action="[% form_action %]" method="post">
     <p>
         [% IF Catalyst.user %]
         <span>Gå videre for å legge inn et værvarsel!</span>
@@ -12,6 +12,7 @@
         [% END -%]
     </p>
     <p>
+        <input type="hidden" name="form_step" value="email" />
         [% PROCESS register/form_reg_inputs.tt2 %]
         <span class="button">
             <input type="submit" value="Gå videre" title="Gå videre for å velge sted" />

@@ -13,6 +13,12 @@
 <div id="varsle-login" class="inner-box login-box">
     [% PROCESS login/form_login.tt2 %]
     <p>
+        <strong>Glemt passord?</strong> Ingen fare.
+        Du kan sette et <a href="[%
+            Catalyst.uri_for('/profile/password/lost' email)
+        %]">nytt passord</a>.
+    </p>
+    <p>
         Dersom du ikke har en konto kan du
         <a href="[% Catalyst.uri_for('/register') %]">registrere</a> en ny.
     </p>

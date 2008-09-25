@@ -1,6 +1,9 @@
 package Varsel::View::Email;
 
 use strict;
+
+use Data::Dumper;
+
 use base 'Catalyst::View::Email';
 
 =head1 NAME
@@ -57,6 +60,25 @@ __PACKAGE__->config(
     },
 );
 
+
+=head1 METHODS
+
+=head2 process
+
+=cut
+
+sub process {
+    my ( $self, $c ) = @_;
+
+    if ($c->debug) {
+        $c->log->debug("We are in debug mode and don't send emails.");
+        $c->log->debug("Here is the content of the email:");
+        $c->log->debug(Dumper $c->stash->{'email'});
+    }
+    else {
+        return $self->NEXT::process($c);
+    }
+}
 
 =head1 AUTHOR
 

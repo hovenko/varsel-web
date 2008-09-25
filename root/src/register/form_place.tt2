@@ -1,4 +1,4 @@
-<form action="[% Catalyst.uri_for('/register/place') %]" method="post">
+<form action="[% form_action %]" method="post">
     <p>
         <!-- The geo coordinates goes here -->
         <input type="hidden" id="varsle-reg.geo" name="geo" value="" />
@@ -41,8 +41,23 @@
         Du vil motta værvarsel fra stedet som merkes av det lille krysset midt
         på kartet.
     </p>
+
+    [% IF Catalyst.debug %]
+    <p>
+        <button id="google-map-geo-test">Klikk her for testdata!</button>
+        <script type="text/javascript"><!--//--><![CDATA[
+            jQuery("#google-map-geo-test").click(function() {
+                jQuery(document.getElementById("varsle-reg.geo"))
+                    .val("(59.587162, 10.213194)");
+                return false;
+            });
+        //]]>
+        </script>
+    </p>
+    [% END %]
     
     <p>
+        <input type="hidden" name="form_step" value="place" />
         [% PROCESS register/form_reg_inputs.tt2 %]
         <span class="button">
             <input type="submit" value="Gå videre for å velge dato &raquo;" />

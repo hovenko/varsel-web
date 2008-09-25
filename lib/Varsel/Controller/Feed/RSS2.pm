@@ -47,7 +47,7 @@ sub rss2 : Private {
                 ->filter($forecast_ref->{'winddirection'});
 
         # We want it backwards,
-        # so that new items naturally can be added to the top
+        # so that new items naturally are added on top of the list
         unshift @forecasts, $forecast_ref;
     }
 

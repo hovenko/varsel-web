@@ -1,4 +1,4 @@
-<form action="[% Catalyst.uri_for('/register/date') %]" method="post">
+<form action="[% form_action %]" method="post">
     <p>
         <label for="varsle-reg.date">Dato</label>
         <input type="text" id="varsle-reg.date" name="date" value="[% reg.date %]" />
@@ -23,6 +23,7 @@
     </div>
         
     <p>
+        <input type="hidden" name="form_step" value="date" />
         [% PROCESS register/form_reg_inputs.tt2 %]
         <span class="button">
             <input type="submit" value="Gå videre til registrering &raquo;" />

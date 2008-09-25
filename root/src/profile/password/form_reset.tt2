@@ -1,0 +1,38 @@
+<form action="[% Catalyst.uri_for('/profile/password/reset_do') %]" method="post">
+    <p>
+        <label for="reset-password.email">E-postadresse</label>
+        <input id="reset-password.email" type="text" name="email" value="[% email %]" />
+        [% IF validation.email -%]
+        <span class="error validation">[% validation.email %]</span>
+        [% END -%]
+    </p>
+
+    <p>
+        <label for="reset-password.token">Verifiseringskode</label>
+        <input id="reset-password.token" type="text" name="token" value="[% token %]" />
+        [% IF validation.token -%]
+        <span class="error validation">[% validation.token %]</span>
+        [% END -%]
+    </p>
+
+    <p>
+        <label for="reset-password.password">Nytt passord</label>
+        <input id="reset-password.password" type="password" name="password" />
+        [% IF validation.password -%]
+        <span class="error validation">[% validation.password %]</span>
+        [% END -%]
+    </p>
+    <p>
+        <label for="reset-password.password2">Gjenta passord</label>
+        <input id="reset-password.password2" type="password" name="password2" />
+        [% IF validation.password2 -%]
+        <span class="error validation">[% validation.password2 %]</span>
+        [% END -%]
+    </p>
+
+    <p>
+        <span class="button">
+            <input type="submit" value="Sett nytt passord" />
+        </span>
+    </p>
+</form>

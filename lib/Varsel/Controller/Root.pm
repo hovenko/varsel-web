@@ -51,7 +51,7 @@ It displays an error page.
 
 sub default : Private {
     my ( $self, $c ) = @_;
-    $c->detach('error', []);
+    $c->detach('error', ['']);
 }
 
 =head2 error

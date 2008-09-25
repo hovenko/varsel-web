@@ -14,13 +14,13 @@ Catalyst Controller.
 
 =head1 METHODS
 
-=head2 index 
+=head2 register
 
 This method registers a new feed for a location selected by the user.
 
 =cut
 
-sub index : Private {
+sub register : Path {
     my ( $self, $c ) = @_;
 
     if ($c->req->method =~ m{^post$}i) {

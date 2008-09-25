@@ -27,6 +27,7 @@
         <a href="[% Catalyst.uri_for('/terms') %]" title="Betingelser for registrering">betingelsene</a>
         før du går videre.
     </p>
+    [% form_action = Catalyst.uri_for('/register/forecast') %]
     [% PROCESS register/form_email.tt2 %]
 </div>
 

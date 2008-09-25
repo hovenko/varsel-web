@@ -66,6 +66,7 @@ __PACKAGE__->config(
     },
     'default_step'          => 'email',
     'default_input_email'   => 'Your email address',
+    'form_action'           => 'forecast',
 );
 
 
@@ -79,7 +80,7 @@ Default action, redirects to the first step.
 
 sub default : Private {
     my ( $self, $c ) = @_;
-    $c->res->redirect( $c->uri_for($self->{'default_step'}) );
+    $c->res->redirect( $c->uri_for('forecast') );
 }
 
 =head2 begin 
@@ -96,17 +97,8 @@ sub begin : Private {
 
     my $reg         = $c->forward('build_register_struct');
     $self->register($reg);
-    
-    my $action                  = $c->action->name;
-    my $render_step             = $c->forward('get_next_step', [$action]);
-    
-    $self->render_step($render_step);
-    
-    if (!$VALID_STEPS{$render_step}) {
-        $c->log->warn("Not a valid step: $render_step");
-        $c->detach('/error', ["Ugyldig steg: $render_step"]);
-    }
-    
+    $self->form_step($reg->{'form_step'});
+
     # Only validate on post requests
     if ($c->forward('is_post')) {
         my $validation  = $c->forward('validate_register_struct', [$reg]);
@@ -136,6 +128,7 @@ sub end : ActionClass('RenderView') {
     my ( $self, $c ) = @_;
     
     my $render_step = $self->render_step();
+    $render_step    ||= $self->{'default_step'};
     
     $c->forward('prepare_js_register');
 
@@ -158,11 +151,13 @@ sub end : ActionClass('RenderView') {
         );
         push @{ $c->stash->{'stylesheets'} }, \%css_ui_datepicker;
     }
-    
-    $c->log->debug("View to render: $render_step")
-        if $c->debug;
-    
-    $c->forward('set_template_for_step', [$render_step]);
+
+    $c->stash->{'form_action'}  = $c->uri_for(
+        sprintf(
+            '/register/%s',
+            $self->{'form_action'}
+        )
+    );
 }
 
 =head2 require_first_timer(C<$reg>)
@@ -231,15 +226,19 @@ Action that handles the entered email address.
 
 =cut
 
-sub email : Local {
+sub email : Private {
     my ( $self, $c ) = @_;
+
+    $self->render_step('email');
+    $c->stash->{'template'} = 'register/email.tt2';
 
     if ($c->forward('is_post')) {
         my $email       = $c->stash->{'reg'}->{'email'};
         my $validation  = $c->stash->{'validation'};
+        $validation     = $c->forward('filter_validations', [$validation]);
         
         if (%$validation) {
-            $c->forward('redo_step');
+            $c->detach('redo_step');
         }
     }
     else {
@@ -251,7 +250,6 @@ sub email : Local {
         # If an email parameter is given, we autofil the form input field.
         #
         $c->stash->{'reg'}->{'email'} = $c->req->parameters->{'email'};
-        $self->render_step($c->action->name);
     }
 }
 
@@ -261,17 +259,16 @@ Action that handles the selected location of the weather forecast.
 
 =cut
 
-sub place : Local {
+sub place : Private {
     my ( $self, $c ) = @_;
+
+    $self->render_step('place');
+    $c->stash->{'template'} = 'register/place.tt2';
     
-    if ($c->forward('is_post')) {
-        my $validation = $c->stash->{'validation'};
-        if (%$validation) {
-            $c->forward('redo_step');
-        }
-    }
-    else {
-        $c->res->redirect( $self->{'default_step'} );
+    my $validation  = $c->stash->{'validation'};
+    $validation     = $c->forward('filter_validations', [$validation]);
+    if (%$validation) {
+        $c->detach('redo_step');
     }
 }
 
@@ -281,43 +278,58 @@ Action that handles the date and time input.
 
 =cut
 
-sub date : Local {
+sub date : Private {
     my ( $self, $c ) = @_;
     
-    if ($c->forward('is_post')) {
-        my $validation = $c->stash->{'validation'};
-        if (%$validation) {
-            $c->forward('redo_step');
-        }
+    $self->render_step('date');
+    $c->stash->{'template'} = 'register/date.tt2';
+
+    my $validation  = $c->stash->{'validation'};
+    $validation     = $c->forward('filter_validations', [$validation]);
+    if (%$validation) {
+        $c->detach('redo_step');
     }
-    else {
-        $c->res->redirect( $self->{'default_step'} );
-    }
-    
-    # If logged in, we handle profile right now
-    if ($c->user) {
-        $c->forward('profile');
-    }
-    
 }
 
 =head2 profile
 
-Action that handles the profile input and will save the registered data
-to some data storage.
+Action that handles the profile input.
 
 =cut
 
-sub profile : Local {
+sub profile : Private {
     my ( $self, $c ) = @_;
+
+    $self->render_step('profile');
+    $c->stash->{'template'} = 'register/profile.tt2';
+
+    my $validation  = $c->stash->{'validation'};
+    $validation     = $c->forward('filter_validations', [$validation]);
+    if (%$validation) {
+        $c->detach('redo_step');
+    }
     
+}
+
+=head2 forecast
+
+Action that handles will save the registered data to database.
+
+=cut
+
+sub forecast : Local {
+    my ( $self, $c ) = @_;
+
     if ($c->forward('is_post')) {
-        my $validation = $c->stash->{'validation'};
-        if (%$validation) {
-            # Validation errors
-            $c->forward('redo_step');
-        }
-        elsif (my $user = $c->user) {
+
+        # Any of these steps will break out if there are any validation errors
+        $c->forward('email');
+        $c->forward('place');
+        $c->forward('date');
+        $c->forward('profile');
+        
+
+        if (my $user = $c->user) {
             # User is logged in
 
             my %register = %{ $self->register };
@@ -347,6 +359,8 @@ sub profile : Local {
             $c->stash->{'reg'}->{'geo'} = $point;
 
             $c->forward('check_notice_forecast', [$notice]);
+
+            $c->stash->{'template'} = 'register/complete_auth.tt2';
         }
         else {
             # We have a new user
@@ -404,10 +418,12 @@ sub profile : Local {
             $c->forward( $c->view('Email') );
 
             $c->forward('check_notice_forecast', [$notice]);
+
+            $c->stash->{'template'} = 'register/complete.tt2';
         }
     }
     else {
-        $c->res->redirect( $self->{'default_step'} );
+        $c->detach( $self->{'default_step'} );
     }
 }
 
@@ -511,21 +527,20 @@ executed action.
 sub redo_step : Private {
     my ( $self, $c ) = @_;
     
-    my $action                  = $c->action->name;
-    $c->log->info("Redoing action $action.");
-    
     # Setting a new render template if we have validation errors
     my $validation = $c->stash->{'validation'};
     if ($validation) {
-        $action = get_invalid_step($validation);
+        my $action = $self->get_invalid_step($validation);
+
+        $self->render_step( $self->form_step );
+        $validation     = $c->forward('filter_validations', [$validation]);
+        $c->stash->{'validation'} = $validation;
         
-        $c->log->info("Invalid input from user, redoing step $action.");
+        $c->log->info("Missing input from user to complete registration."
+                     ." Next step: $action.");
         $c->log->debug("Invalid input from user: ".Dumper $validation)
             if $c->debug;
     }
-    
-    $self->render_step($action);
-    $c->forward('set_template_for_step', [$action]);
 }
 
 =head2 get_invalid_step(C<\%validation>)
@@ -536,7 +551,7 @@ validation errors.
 =cut
 
 sub get_invalid_step : Private {
-    my ( $validation ) = @_;
+    my ( $self, $validation ) = @_;
     
     my $lowest_step         = undef;
     my $lowest_step_name    = undef;
@@ -562,25 +577,6 @@ sub get_invalid_step : Private {
     }
     
     return $lowest_step_name;
-}
-
-=head2 set_template_for_step(C<$step>)
-
-This method sets the template to use based on the name of the step which is
-to be rendered for view.
-
-=cut
-
-sub set_template_for_step : Private {
-    my ( $self, $c, $step ) = @_;
-
-    # If the user is logged in (aka. already registered)
-    # on the last step, we complete it all
-    if (my $user = $c->user && $step eq 'complete') {
-        $step = 'complete_auth';
-    }
-    
-    $c->stash->{'template'}     = "register/${step}.tt2";
 }
 
 =head2 validate_register_struct(C<\%reg>)
@@ -670,9 +666,9 @@ sub validate_register_struct : Private {
         delete $validation{'password2'};
     };
     
-    my $validation_ref = $c->forward('filter_validations', [\%validation]);
+    #my $validation_ref = $c->forward('filter_validations', [\%validation]);
     
-    return $validation_ref;
+    return \%validation;
 }
 
 =head2 validate_date_format(C<$date>)
@@ -750,7 +746,7 @@ This makes sure we don't trigger errors which are not valid to the current step.
 sub filter_validations : Private {
     my ( $self, $c, $validation ) = @_;
     
-    my $action      = $c->action->name;
+    my $action      = $self->render_step();
     my $step_no     = $VALID_STEPS{$action};
     
     my %new_validation = ();
@@ -796,7 +792,9 @@ sub build_register_struct : Private {
     my ( $self, $c ) = @_;
     
     my @fields      = qw/
-        email email2 firstname lastname geo address date time password password2 
+        form_step
+        email email2 firstname lastname
+        geo address date time password password2 
     /;
     
     my %register = ();
@@ -812,32 +810,10 @@ sub build_register_struct : Private {
         $register{'email'}      = $user->email;
     }
     
-    $register{'time'} ||= $DEFAULT_TIME;
+    $register{'time'}       ||= $DEFAULT_TIME;
+    $register{'form_step'}  ||= $self->{'default_step'};
     
     return \%register;
-}
-
-=head2 get_next_step(C<$current_step>)
-
-Returns the next step after the one given as parameter.
-
-=cut
-
-sub get_next_step : Private {
-    my ($self, $c, $current_step) = @_;
-    my $default_step_no = $VALID_STEPS{ $current_step } || 1;
-    my $next_step_no    = $default_step_no + 1;
-    
-    my ($next_step)     = grep {
-        $VALID_STEPS{ $_ } == $next_step_no
-    } keys %VALID_STEPS;
-
-    # If the user is logged in on the last step, we complete it all
-    if ($next_step && $next_step eq 'profile' && $c->user) {
-        $next_step = 'complete';
-    }
-    
-    return $next_step || undef;
 }
 
 =head2 register(<\%reg>)
@@ -855,6 +831,14 @@ Accessor for the name of the step to render (display).
 =cut
 
 __PACKAGE__->mk_accessors(qw/render_step/);
+
+=head2 form_step
+
+Accessor for the name of the form just POST-ed.
+
+=cut
+
+__PACKAGE__->mk_accessors(qw/form_step/);
 
 =head1 AUTHOR
 

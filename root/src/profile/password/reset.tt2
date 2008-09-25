@@ -1,0 +1,22 @@
+<div id="velkommen">
+    <h2>Sett nytt passord</h2>
+    
+    <p>
+        Skriv inn din e-postadresse i feltet nedenfor,
+        sammen med verifiseringskoden du skal ha mottatt på e-post.
+    </p>
+
+    <p>
+        Har du ikke mottatt noen e-post med verifiseringskode, men allikevel
+        ønsker nytt passord, <a href="[% Catalyst.uri_for('/profile/password/lost' email) %]">gå hit</a>.
+    </p>
+</div>
+
+<div class="inner-box">
+    <h2>Sett nytt passord</h2>
+    [% PROCESS profile/password/form_reset.tt2 %]
+
+    <p>
+        Du kan logge inn umiddelbart etter endring av passord!
+    </p>
+</div>

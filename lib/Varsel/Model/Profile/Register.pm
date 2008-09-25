@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Params::Validate;
+use Varsel::Verification;
 
 use base 'Catalyst::Model';
 
@@ -119,37 +120,16 @@ sub verify {
 
 =head2 generate_code(C<$password_length>)
 
-This generates a random code with a given length.
-The code will contain only characters like A-Z, a-z and 0-9.
+This will generate a random code.
 
-The default length is 10.
+See <Varsel::Verification> for details.
 
 =cut
 
 sub generate_code {
     my ($self, $password_length) = @_;
 
-    $password_length ||= 10;
-
-    my $password;
-    my $_rand;
-
-    my @chars = qw(
-a b c d e f g h i j k l m n o
-p q r s t u v w x y z
-A B C D E F G H I J K L M N O
-P Q R S T U V W X Y Z
-0 1 2 3 4 5 6 7 8 9
-);
-
-    srand;
-
-    for (my $i=0; $i < $password_length; $i++) {
-        $_rand = int(rand scalar @chars);
-        $password .= $chars[$_rand];
-    }
-
-    return $password;
+    return Varsel::Verification->generate($password_length);
 }
 
 =head2 ACCEPT_CONTEXT
