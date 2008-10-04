@@ -84,20 +84,20 @@ Model::Javascripts:
             params:
                 file:       api
                 v:          2
-                key:        "ABQIAAAAA3EdiJ5OJBl-sShPqrkj5RREhhC8tNWoG_zMowBWmZvKBfnnSxTaPspMq2OQLWi8wMdNCatdTuhdsA"
+                key:        "ABQIAAAAA3EdiJ5OJBl-sShPqrkj5RRltRehoHIxeuWiiNytfQxdC4iJCRQJXsTImQm0nO2rAHRjTuHJ_nAdLw"
         "google-maps-loader":
-            uri:        "/varsel-trunk/static/js/google-map-loader.js"
+            uri:        "/varsel/static/js/google-map-loader.js"
             deps:
                 -   "google-maps"
                 -   jquery
         "ui-datepicker":
-            uri:        "/varsel-trunk/static/js/ui.datepicker.js"
+            uri:        "/varsel/static/js/ui.datepicker.js"
             deps:
                 -   jquery
         "jquery":
-            uri:        "/varsel-trunk/static/js/jquery-1.2.3.pack.js"
+            uri:        "/varsel/static/js/jquery-1.2.3.pack.js"
         "register":
-            uri:        "/varsel-trunk/static/js/register.js"
+            uri:        "/varsel/static/js/register.js"
             deps:
                 -   jquery
 
