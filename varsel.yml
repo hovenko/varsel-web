@@ -101,6 +101,9 @@ Model::Javascripts:
             deps:
                 -   jquery
 
+Model::Banner::Top:
+    url:        "http://hovenko.no/banner/top/doclet"
+    stash_key:  banner_top_doclet
 
 View::Email:
     sender:
