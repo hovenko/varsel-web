@@ -315,5 +315,20 @@ button,
 }
 
 
+/*
+ * Overriding the default top banner style
+ */
+.banner.top {
+    background-color                                : #E0ECFF;
+    border-bottom                                   : 1px solid #0066FF;
+}
 
+.banner.top ul li a {
+}
+
+.banner.top ul li a:hover {
+    background-color                                : #3D8BFF;
+    border-bottom                                   : 1px solid #0066FF;
+    color                                           : white;
+}
 
