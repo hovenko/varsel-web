@@ -96,7 +96,12 @@ Attempt to render a view, if needed.
 
 =cut 
 
-sub end : ActionClass('RenderView') {}
+sub end : ActionClass('RenderView') {
+    my ( $self, $c ) = @_;
+
+    # When rendering normal templates, we include the top banner
+    $c->model('Banner::Top');
+}
 
 
 =head1 AUTHOR
