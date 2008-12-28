@@ -59,6 +59,9 @@ sub forecasts {
 
     $geo ||= {};
     my %args = (%$geo, %$self);
+
+    # HACK: make this configurable in yaml file
+    $args{'url'} = "http://api.yr.no/weatherapi/locationforecast/1.5/";
     
     my $yr = Weather::YR::Locationforecast->new(\%args);
     return $yr->forecast;
