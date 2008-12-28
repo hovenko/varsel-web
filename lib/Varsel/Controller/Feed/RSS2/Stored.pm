@@ -105,11 +105,14 @@ sub fetch_feed : Private {
     my $feed_desc   = "Værvarsel for de neste tre dagene fra $feed_name";
     my $feed_title  = "Værvarsel feed $feed_name";
 
+    my $feed_link   = $c->uri_for('/feed/html/stored/', $feed->id);
+
     #utf8::encode($feed_desc);
     #utf8::encode($feed_title);
 
     $rss->channel('title'       => $feed_title) if $feed_name;
     $rss->channel('description' => $feed_desc) if $feed_name;
+    $rss->channel('link'        => $feed_link) if $feed_link;
 
     my $content = $rss->as_string;
 
