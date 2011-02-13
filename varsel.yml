@@ -52,11 +52,11 @@ Model::GoogleMaps:
     key:    "ABQIAAAAA3EdiJ5OJBl-sShPqrkj5RTJQa0g3IQ9GZqIMmInSLzwtGDKaBR6oAunersCU9cry7_-imOexnZ8_g"
 
 Model::Profile::Email:
-    from:       'Værvarsel <hovenko@linpro.no>'
+    from:       'Værvarsel <knutolav@gmail.com>'
     subject:    'Velkommen til værvarsling rett hjem'
 
 Model::Profile::Email::Password:
-    from:       'Værvarsel <hovenko@linpro.no>'
+    from:       'Værvarsel <knutolav@gmail.com>'
     subject:    'Gjenopprett ditt passord'
 
 Model::YRDB:
