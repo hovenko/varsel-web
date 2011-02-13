@@ -16,6 +16,9 @@ requires 'Catalyst::Plugin::Session::Store::FastMmap';
 requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'Catalyst::Plugin::PageCache';
 requires 'Catalyst::Action::RenderView';
+requires 'Catalyst::Authentication::Store::DBIx::Class';
+requires 'Catalyst::View::Email';
+requires 'Catalyst::View::TT';
 requires 'YAML'; # This should reflect the config file format you've chosen
                  # See Catalyst::Plugin::ConfigLoader for supported formats
 
@@ -23,6 +26,8 @@ requires 'Class::Accessor::Fast';
 requires 'Data::Validate::Email';
 requires 'DateTime';
 requires 'Email::MIME::Creator';
+requires 'HTML::ScriptLoader';
+requires 'NetAddr::IP';
 requires 'Params::Validate';
 requires 'Weather::YR';
 requires 'XML::RSS';
