@@ -11,5 +11,7 @@
  </head>
  <body>
 [% content %]
+
+[% PROCESS googleanalytics/doclet.tt2 %]
  </body>
 </html>
