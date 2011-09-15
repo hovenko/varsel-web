@@ -1,0 +1,4 @@
+[% site.googleanalytics = {
+        account = 'UA-21002664-1'
+    }
+%]
