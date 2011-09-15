@@ -1,7 +1,6 @@
 <div id="velkommen">
     <p>
-        <strong class="rss">Nyhet!</strong>
-        Nå kan du motta værvarsel for de neste dagene som
+        Du kan motta værvarsel for de neste dagene som
         <a href="[%
             Catalyst.uri_for('/map/find')
         %]">RSS-feed</a>!

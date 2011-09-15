@@ -58,7 +58,13 @@ sub forecasts {
     my ( $self, $geo ) = @_;
 
     $geo ||= {};
-    my %args = (%$geo, %$self);
+    my %args = %$geo;
+
+    my @argnames = qw(url latitude longitude);
+    for my $argname (@argnames) {
+        $args{$argname} = $self->{$argname}
+            if exists $self->{$argname};
+    }
     
     my $yr = Weather::YR::Locationforecast->new(\%args);
     return $yr->forecast;
