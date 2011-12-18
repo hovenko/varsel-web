@@ -83,6 +83,8 @@ sub rss2 : Private {
     );
 
     for my $forecast (@forecasts) {
+        next unless $forecast->{'fc_from'};
+
         my $title   = $forecast->{'fc_from'}->strftime('%a %d. %b kl %H:%M');
         my $description_fmt = '%s, %d grader og %d %s nedbør';
 

@@ -64,6 +64,12 @@ sub map : Path Args(1) {
 
     my $rss     = $c->forward('/feed/rss2/rss2', [\%geo, @times]);
 
+    if (!$rss) {
+        $c->res->status(500);
+        $c->res->body("Failed to retrieve forecasts of $geo");
+        $c->detach;;
+    }
+
     $c->forward('/feed/rss2/print', [$rss->as_string]);
 }
 
