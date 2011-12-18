@@ -3,9 +3,11 @@ package Varsel::Model::YR::Locationforecast;
 use strict;
 use warnings;
 
+use base 'Catalyst::Model';
+
+use Data::Dumper;
 use Weather::YR::Locationforecast;
 
-use base 'Catalyst::Model';
 
 =head1 NAME
 
@@ -149,10 +151,12 @@ sub filter_nearest_forecast {
             # "enough", like one hour until the requested time, we let it go...
         }
     }
+
+    Varsel->log->debug("Forecasts best match: ".Dumper [keys %nearest]);
     
     # We require all forecast data types to be there
     for my $type (values %TYPES) {
-        Catalyst::Exception->throw("Missing forecast data for type $type")
+        Varsel->log->warn("Missing forecast data for type $type")
             unless $nearest{$type};
     }
     
