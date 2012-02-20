@@ -63,7 +63,7 @@ sub forecasts {
     my %args = %$geo;
 
     # HACK: make this configurable in yaml file
-    $args{'url'} = "http://api.yr.no/weatherapi/locationforecast/1.5/";
+    $args{'url'} = "http://api.yr.no/weatherapi/locationforecast/1.8/";
 
     my @argnames = qw(url latitude longitude);
     for my $argname (@argnames) {
@@ -130,12 +130,7 @@ sub filter_nearest_forecast {
         my $from    = $forecast->{'from'};
         
         my $cmp     = DateTime->compare($from, $forecasttime);
-        my $type    = $TYPES{ref $forecast} || undef;
-        
-        if (!$type) {
-            my $error = sprintf('Unknown forecast type: %s', ref $forecast);
-            Catalyst::Exception->throw($error);
-        }
+        my $type    = $TYPES{ref $forecast} || "generic";
         
         if ($cmp == 0) {
             # Perfect match on time
