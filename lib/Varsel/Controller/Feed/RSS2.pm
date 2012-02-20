@@ -68,7 +68,7 @@ sub rss2 : Private {
         'link'          => $c->uri_for('/'),
         'language'      => 'no',
         'description'   => $description,
-        'copyright'     => 'Copyright 2008 Knut-Olav Hoven',
+        'copyright'     => 'Copyright 2012 Knut-Olav Hoven',
         'pubDate'       => $pubDate,
         'lastBuildDate' => $pubDate,
     );
