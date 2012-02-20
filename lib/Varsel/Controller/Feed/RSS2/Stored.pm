@@ -99,6 +99,7 @@ sub fetch_feed : Private {
     );
 
     my $rss     = $c->forward('/feed/rss2/rss2', [\%geo, @times]);
+    die "Failed to build RSS2 feed" unless $rss;
 
     my $feed_name   = $feed->name;
 
