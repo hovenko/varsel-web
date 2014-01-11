@@ -15,6 +15,7 @@ requires 'Catalyst::Plugin::Session';
 requires 'Catalyst::Plugin::Session::Store::FastMmap';
 requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'Catalyst::Plugin::PageCache';
+requires 'Catalyst::View::Email';
 requires 'Catalyst::Action::RenderView';
 requires 'Catalyst::Authentication::Store::DBIx::Class';
 requires 'Catalyst::View::Email';
