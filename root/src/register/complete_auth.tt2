@@ -1,0 +1,35 @@
+[% META widecolum = 1 %]
+
+<div id="velkommen">
+    <h2>Steg 4 - Fullført</h2>
+
+    <p>
+        Vi ønsker deg lykke til med været og du er velkommen tilbake når som
+        helst for å registrere flere varslinger, så mange du måtte ønske.
+    </p>
+    
+    <h3>Varsling på e-post</h3>
+    <p>
+        Du vil motta værvarselet på e-post når dette er klart.
+        <em>Ta gjerne en titt i mappen for søppelpost
+        (spam), det kan hende e-posten har havnet der.</em>
+    </p>
+    
+    <p>
+        Du vil motta værvarselet omtrent <strong>10 dager</strong> før datoen
+        du har valgt.
+        Det er det beste vi kan gi deg. Du vil motta oppdatert værvarsel
+        etter dette, dersom det endrer seg.
+    </p>
+</div>
+
+<div id="varsle-reg" class="inner-box">
+	<p>
+	   Her er informasjonen du har lagret hos oss.
+	</p>
+    [% PROCESS register/auth/table_reg.tt2 %]
+    
+    <p class="button">
+        <a href="[% site.url.home %]">Tilbake til forsiden</a>
+    </p>
+</div>

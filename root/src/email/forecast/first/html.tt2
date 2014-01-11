@@ -1,0 +1,8 @@
+<h1>Første værvarsel</h1>
+
+[% PROCESS email/forecast/forecast_html.tt2 %]
+
+<p>
+    Du vil motta nye varslinger fram mot datoen du har valgt dersom varselet
+    forandrer seg.
+</p>

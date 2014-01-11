@@ -1,0 +1,21 @@
+[% META widecolum = 1 %]
+
+<div id="velkommen">
+    <h2>Fullført!</h2>
+
+    <p>
+        Du kan nå sette opp din RSS-leser med følgende lenke:
+        <a class="rss" href="[%
+                Catalyst.uri_for('/feed/rss2/stored/' _ feed.id
+                ) |html
+                %]" title="Værvarsel på RSS-feed"
+            >[% Catalyst.uri_for('/feed/rss2/stored/' _ feed.id) %]</a>.
+    </p>
+</div>
+
+<div class="inner-box">
+    <p>
+        På <a href="[% Catalyst.uri_for('/user/feeds') %]">profilsiden din</a>
+        har du en oversikt over hvilke feeds du har registrert.
+    </p>
+</div>

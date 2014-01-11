@@ -1,0 +1,3 @@
+[% FOREACH field IN reg -%]
+<input type="hidden" name="reg.[% field.key %]" value="[% field.value %]" />
+[% END -%]

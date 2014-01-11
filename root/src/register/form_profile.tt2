@@ -1,0 +1,71 @@
+<form class="profile" action="[% form_action %]" method="post">
+    <table>
+        <tr>
+            <td>
+                <label for="varsle-reg.firstname">Fornavn</label>
+            </td>
+            <td>
+                <input type="text" id="varsle-reg.firstname" name="firstname" value="[% reg.firstname %]" />
+                [% IF validation.firstname -%]
+                <span class="error validation">[% validation.firstname %]</span>
+                [% END -%]
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label for="varsle-reg.lastname">Etternavn</label>
+            </td>
+            <td>
+                <input type="text" id="varsle-reg.lastname" name="lastname" value="[% reg.lastname %]" />
+                [% IF validation.lastname -%]
+                <span class="error validation">[% validation.lastname %]</span>
+                [% END -%]
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label for="varsle-reg.password">Ønsket passord</label>
+            </td>
+            <td>
+                <input type="password" id="varsle-reg.password" name="password" value="" />
+                [% IF validation.password -%]
+                <span class="error validation">[% validation.password %]</span>
+                [% END -%]
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label for="varsle-reg.password2">Gjenta passord</label>
+            </td>
+            <td>
+                <input type="password" id="varsle-reg.password2" name="password2" value="" />
+                [% IF validation.password2 -%]
+                <span class="error validation">[% validation.password2 %]</span>
+                [% END -%]
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label for="varsle-reg.email2">Bekreft din e-postadresse</label>
+            </td>
+            <td>
+                <input type="text" id="varsle-reg.email2" name="email2" value="[% reg.email2 %]" />
+                [% IF validation.email2 -%]
+                <span class="error validation">[% validation.email2 %]</span>
+                [% END -%]
+            </td>
+        </tr>
+    </table>
+
+    <p>
+        <input type="hidden" name="form_step" value="profile" />
+        [% PROCESS register/form_reg_inputs.tt2 %]
+        <span class="button">
+            <input type="submit" value="Gi meg varsel!" />
+        </span>
+    </p>
+</form>

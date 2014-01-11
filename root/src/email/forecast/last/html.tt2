@@ -1,0 +1,12 @@
+<h1>Siste værvarsel</h1>
+
+<p>
+    Dette er siste varsling du vil motta for dette værvarselet.
+</p>
+
+[% PROCESS email/forecast/forecast_html.tt2 %]
+
+<p>
+    Dersom du ønsker flere varslinger kan du legge et nytt besøk til
+    [% Catalyst.uri_for('/') %], logge inn og registrere nye varslinger.
+</p>

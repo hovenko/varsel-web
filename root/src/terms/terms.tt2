@@ -1,0 +1,42 @@
+<div id="velkommen">
+    <h2>Betingelser for bruk</h2>
+
+    <p>
+        1. For at du skal kunne motta varsler må du skrive inn din ekte
+        e-postadresse når du registrerer deg. Dette er påkrevd for at du skal
+        kunne motta værvarsel på e-post. Hvor ellers skal vi sende varselet?
+    </p>
+    
+    <p>
+        2. Vi lover å ikke misbruke denne e-postadressen,
+        som for eksempel til reklame eller å gi den bort til andre.
+    </p>
+    
+    <p>
+        3. Du har ikke lov til å registrere værvarsel med en annen persons
+        e-postadresse uten deres samtykke.
+    </p>
+    
+    <p>
+        4. Du vil motta en e-post når du registrerer deg med informasjon om å
+        verifisere e-postadressen din. Dette er påkrevd for at du skal kunne
+        motta nye værvarsler på samme e-postadresse.
+    </p>
+    
+    <p>
+        5. Du vil motta oppdateringer på varselet dersom værvarselet er blitt
+        endret fra forrige e-post du mottok.
+        Det vil gå minst et par dager mellomrom mellom hver oppdatering.
+        I tillegg vil du motta en e-post som bekrefter avslutning av
+        varslingstjenesten, sammen med ferskeste værvarsel.
+    </p>
+</div>
+
+<div id="varsle-tilbake" class="inner-box">
+    <p>
+        Når du har lest og forstått betingelsene kan du gå tilbake til
+        <a href="[% Catalyst.uri_for('/') %]" class="hjem" title="Tilbake til forsiden">forsiden</a>
+        for å registrere deg.
+    </p>
+</div>
+

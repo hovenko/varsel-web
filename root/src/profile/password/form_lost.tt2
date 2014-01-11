@@ -1,0 +1,15 @@
+<form action="[% Catalyst.uri_for('/profile/password/lost_do') %]" method="post">
+    <p>
+        <label for="lost-password.email">E-postadresse</label>
+        <input id="lost-password.email" type="text" name="email" value="[% email %]" />
+        [% IF validation.email -%]
+        <span class="error validation">[% validation.email %]</span>
+        [% END -%]
+    </p>
+    
+    <p>
+        <span class="button">
+            <input type="submit" value="Glemt passord" />
+        </span>
+    </p>
+</form>

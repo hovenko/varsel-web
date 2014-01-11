@@ -1,0 +1,66 @@
+<form action="[% form_action %]" method="post">
+    <p>
+        <!-- The geo coordinates goes here -->
+        <input type="hidden" id="varsle-reg.geo" name="geo" value="" />
+        <input type="hidden" id="varsle-reg.geosearch" name="geosearch" value="" />
+    </p>
+    
+    <div class="google-map-search">
+        <p>
+            Søk på et stedsnavn eller naviger på kartet.
+        </p>
+        <input id="google-map-address" type="text" name="address" value="" />
+        <span>For eksempel: Oslo, Norge</span>
+        <button id="google-map-address-search">Søk på adresse</button>
+    </div>
+    
+    <div id="google-map-container">
+	    [% IF validation.geo -%]
+	    <span class="error validation">[% validation.geo %]</span>
+	    [% END -%]
+        <div id="google-map">
+            <p class="no-javascript">
+	            Her skulle Google Maps bli vist. Dersom du ser denne teksten
+		        istedet kan det hende du har skrudd av Javascript i din
+		        nettleser, eller det kan være tekniske problemer hos oss eller
+		        Google.
+	        </p>
+        </div>
+        <div id="google-map-crosshair">
+	        <img src="[% Catalyst.uri_for('/static/gfx/crosshair.gif') %]" alt="" />
+	    </div>
+        <p class="note">
+	        Karttjenesten som brukes heter
+	        <a href="http://maps.google.com/" class="ekstern">Google Maps</a> og har kartdata fra
+	        hele verden.
+	    </p>
+    </div>
+    
+    <p>
+        Klikk og hold på kartet for å bevege deg rundt.
+        Du vil motta værvarsel fra stedet som merkes av det lille krysset midt
+        på kartet.
+    </p>
+
+    [% IF Catalyst.debug %]
+    <p>
+        <button id="google-map-geo-test">Klikk her for testdata!</button>
+        <script type="text/javascript"><!--//--><![CDATA[
+            jQuery("#google-map-geo-test").click(function() {
+                jQuery(document.getElementById("varsle-reg.geo"))
+                    .val("(59.587162, 10.213194)");
+                return false;
+            });
+        //]]>
+        </script>
+    </p>
+    [% END %]
+    
+    <p>
+        <input type="hidden" name="form_step" value="place" />
+        [% PROCESS register/form_reg_inputs.tt2 %]
+        <span class="button">
+            <input type="submit" value="Gå videre for å velge dato &raquo;" />
+        </span>
+    </p>
+</form>

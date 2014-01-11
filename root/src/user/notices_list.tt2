@@ -1,0 +1,51 @@
+[% IF notices %]
+<table>
+    <thead>
+        <tr>
+            <th>Sted</th>
+            <th>Tid</th>
+            <th>Sist varslet</th>
+            <!--<th>...</th>-->
+        </tr>
+    </thead>
+    <tbody>
+        [% FOREACH notice IN notices %]
+        <tr>
+            <td>
+                [% IF notice.address %]
+                [% notice.address %]
+                [% ELSE %]
+                <span class="note">Ukjent</span>
+                [% END %]
+            </td>
+            <td>
+                [% notice.forecasttime.strftime('%d. %B kl %H:%M') %]
+            </td>
+            <td>
+                [% IF notice.processed %]
+                <a
+                    href="[% Catalyst.uri_for('/map/forecast' notice.id) %]"
+                    title="Se siste værvarsel"
+                >[% notice.processed.strftime('%d. %B kl %H:%M') %]</a>
+                [% ELSE %]
+                <span class="note">Ingen ennå *)</span>
+                [% END %]
+            </td>
+            <!--<td><a href="[% Catalyst.uri_for('/user/unreg' notice.id) %]">Avregistrer</a></td>-->
+        </tr>
+        [% END %]
+    </tbody>
+</table>
+<div>
+    <p class="note">
+        *) Du begynner å motta varsler på e-post ca 10 dager før datoen du
+        har valgt.
+    </p>
+</div>
+[% ELSE %]
+<p>
+    Ingen varsler i vente.
+    Du kan registrere et
+    <a href="[% Catalyst.uri_for('/') %]">nytt varsel her</a>.
+</p>
+[% END %]

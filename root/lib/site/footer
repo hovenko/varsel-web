@@ -1,0 +1,8 @@
+<!-- BEGIN site/footer -->
+<div class="varsel-copyright">
+    &copy; [% site.copyright %]
+</div>
+<div class="varsel-datasource">
+    [% site.datasource %]
+</div>
+<!-- END site/footer -->

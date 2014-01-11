@@ -1,0 +1,18 @@
+[% META widecolum = 1 %]
+
+<div id="velkommen">
+    <h2>Fant ikke værvarselet du lette etter</h2>
+
+    <p>
+        Vi kunne dessverre ikke finne værvarselet du ba om. Er du sikker på
+        at du har oppgitt korrekt nettadresse slik den står skrevet i e-posten?
+    </p>
+</div>
+
+<div class="inner-box">
+    <p>
+        Du kan registrere et
+        <a href="[% Catalyst.uri_for('/register') %]">nytt varsel</a>
+        om du ønsker det.
+    </p>
+</div>

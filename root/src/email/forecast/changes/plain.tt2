@@ -1,0 +1,6 @@
+Endring i værvarselet.
+
+Værvarselet har endret seg fra forrige varsling du mottok.
+Her er det nye varselet.
+
+[% PROCESS email/forecast/forecast.tt2 %]

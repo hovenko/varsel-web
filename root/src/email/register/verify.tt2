@@ -1,0 +1,10 @@
+Takk for din registrering.
+
+Du vil motta varsling om været på denne e-postadressen når værvarselet er klargjort.
+
+Vi gjør dem oppmerksom på at fremtidige værvarslinger krever at du verifiserer denne e-postadressen. Dette gjør du ved å klikke på lenken nedenfor (eller markér lenken, kopier og lim inn i adressefeltet i din nettleseren).
+
+Verifiser her: [% Catalyst.uri_for('/profile/verify' registered.code) %]
+
+
+Med vennlig hilsen fra Varsel.

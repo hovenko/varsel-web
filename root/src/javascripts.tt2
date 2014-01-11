@@ -1,0 +1,3 @@
+[% FOREACH javascript IN javascripts.scripts -%]
+  <script type="text/javascript" src="[% javascript.url |html%]"></script>
+[% END -%]

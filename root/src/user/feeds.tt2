@@ -1,0 +1,19 @@
+<div id="velkommen">
+    <h2>Værvarslinger på RSS2-feeds</h2>
+
+    <p>
+        Hei [% user.firstname %].
+        Her har du en oversikt over værvarsler du har registrert som feeds.
+        <!-- Dersom du ikke lenger ønsker å ha en feed i listen din kan du
+        avregistrere den nedenfor. -->
+    </p>
+</div>
+
+<div class="outer-box">
+
+
+<div id="varsle-feeds" class="inner-box">
+    [% PROCESS user/feeds_list.tt2 %]
+</div>
+
+</div>

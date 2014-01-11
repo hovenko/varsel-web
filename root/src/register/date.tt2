@@ -1,0 +1,21 @@
+[% META widecolum = 1 %]
+
+<div id="velkommen">
+    <h2>Steg 3 - Når?</h2>
+
+    <p>
+        Du må velge en dato for når du ønsker værvarsel for.
+        Så snart værvarselet er klart for datoen du velger vil du motta en
+        e-post med værvarselet.
+    </p>
+    <p>
+        Du velger også et klokkeslett, men det er valgfritt å endre dette.
+        Dersom du ikke endrer klokkeslettet vil det automatisk falle tilbake
+        til kl 12 på dagen.
+    </p>
+</div>
+
+<div id="varsle-reg" class="inner-box">
+	<h2>Velg en dato du ønsker værvarsel for</h2>
+    [% PROCESS register/form_date.tt2 %]
+</div>

@@ -1,0 +1,15 @@
+<form action="[% Catalyst.uri_for('/profile/verify') %]" method="post">
+    <p>
+        <label for="verify-code.code">Verifiseringskode</label>
+        <input id="verify-code.code" type="text" name="code" value="[% code %]" />
+        [% IF validation.code -%]
+        <span class="error validation">[% validation.code %]</span>
+        [% END -%]
+    </p>
+    
+    <p>
+        <span class="button">
+            <input type="submit" value="Klikk her for å verifisere koden" />
+        </span>
+    </p>
+</form>

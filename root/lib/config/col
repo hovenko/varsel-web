@@ -1,0 +1,47 @@
+[% site.rgb = {
+     black  = '#000000'
+     white  = '#ffffff'
+     grey1  = '#46494c'
+     grey2  = '#c6c9cc'
+     grey3  = '#e3e6ea'
+     grey4  = '#3c3c3c'
+     red    = '#CC4444'
+     green  = '#66AA66'
+     blue   = '#89b8df'
+     orange = '#f08900'
+     # OLD COLORS
+     #varsel_blue        = '#aaddff'
+     #varsel_darkblue    = '#6689dc'
+     #varsel_yellow      = '#fff2ab'
+     #varsel_green       = '#aaffaa'
+     
+     varsel_lightgrey   = '#8e8e8e'
+     varsel_darkgrey    = '#2c2c2c'
+     varsel_blue        = '#3d8bff'
+     varsel_darkblue    = '#0066ff'
+     varsel_lightblue   = '#e0ecff'
+     varsel_medblue     = '#a5c8fe'
+   };
+
+   site.col = {
+      unsupported_text  = site.rgb.white
+      unsupported_back  = site.rgb.grey4
+      
+      
+      message       = site.rgb.varsel_darkblue
+      error         = site.rgb.red
+      
+      page              = site.rgb.white
+      link              = site.rgb.varsel_darkgrey
+      link_hover        = site.rgb.varsel_darkblue
+      text              = site.rgb.varsel_darkgrey
+      wrapper           = site.rgb.white
+      header            = site.rgb.varsel_blue
+      header_title      = site.rgb.white
+      footer            = site.rgb.varsel_lightgrey
+      line              = site.rgb.varsel_darkblue
+      button            = site.rgb.varsel_blue
+      innerbox          = site.rgb.varsel_lightblue
+      input_borders     = site.rgb.varsel_medblue
+   };
+%]

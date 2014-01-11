@@ -1,0 +1,14 @@
+<div id="velkommen">
+    <h2>Allerede verifisert</h2>
+
+    <p>
+        Du er allerede verifisert.
+    </p>
+</div>
+
+<div class="inner-box">
+    <p>
+        Du kan nå <a href="[% Catalyst.uri_for('/') %]">logge inn</a>
+        for å registrere flere varslinger.
+    </p>
+</div>

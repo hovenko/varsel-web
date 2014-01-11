@@ -1,0 +1,44 @@
+<h1>Værvarsel logg</h1>
+
+<pre>
+[% forecastdump |html %]
+</pre>
+
+<pre>
+[% emaildump |html %]
+</pre>
+
+<pre>
+[% PROCESS email/forecast/forecast.tt2 %]
+</pre>
+
+<ul>
+    [% FOREACH change IN changes %]
+    <li>Endring i: [% change.key %]</li>
+    [% END %]
+</ul>
+
+<p>Dette er behandlede værvarseler:</p>
+
+[% FOREACH forecast IN notices %]
+<table>
+    <tbody>
+        <tr>
+            <td>Profile:</td>
+            <td>[% forecast.profile.firstname %] [% forecast.profile.lastname %]</td>
+        </tr>
+        <tr>
+            <td>Longitude:</td>
+            <td>[% forecast.longitude %]</td>
+        </tr>
+        <tr>
+            <td>Latitude:</td>
+            <td>[% forecast.latitude %]</td>
+        </tr>
+        <tr>
+            <td>Dato/tid:</td>
+            <td>[% forecast.forecasttime %]</td>
+        </tr>
+    </tbody>
+</table>
+[% END %]

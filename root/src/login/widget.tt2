@@ -1,0 +1,5 @@
+[% IF Catalyst.user %]
+[% PROCESS login/form_user.tt2 %]
+[% ELSE %]
+[% PROCESS login/form_login.tt2 %]
+[% END %]

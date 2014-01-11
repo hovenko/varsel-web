@@ -1,0 +1,8 @@
+<h1>Endring i værvarselet</h1>
+
+<p>
+    Værvarselet har endret seg fra forrige varsling du mottok.
+    Her er det nye varselet.
+</p>
+
+[% PROCESS email/forecast/forecast_html.tt2 %]

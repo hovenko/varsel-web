@@ -1,0 +1,5 @@
+<!-- BEGIN site/header -->
+<h1 class="title">
+    <a href="[% site.url.home %]" title="Tilbake til forsiden">Værvarsel <strong>rett hjem</strong></a>
+</h1>
+<!-- END site/header -->

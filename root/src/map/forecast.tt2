@@ -1,0 +1,50 @@
+[% META widecolum = 1 %]
+[% USE date(locale = 'nb_NO') -%]
+
+<div id="velkommen">
+    <h2>Kart for værvarselet</h2>
+
+    <p>
+        Værvarsel for [% notice.forecasttime.strftime('%d. %B kl %H:%M') %].
+    </p>
+
+    <p>
+        Det er forventet [% forecast.symbol_string %]
+        og [% forecast.temp_value %] grader.
+    </p>
+    
+    <ul>
+        [% IF forecast.precip_value %]
+        <li>Nedbør: [% forecast.precip_value %] [% forecast.precip_unit %].</li>
+        [% END %]
+        
+        [% IF forecast.windspeed > 0 %]
+        <li>Vind: [% forecast.windspeed %] meter per sekund fra
+            [% forecast.winddirection_string %].</li>
+        [% END %]
+        
+        [% IF forecast.fog > 5 %]
+        <li>Det er fare for tåke.</li>
+        [% END %]
+        
+        [% IF notice.address %]
+        <li>Du søkte etter "[% notice.address %]" på kartet.</li>
+        [% END %]
+    </ul>
+</div>
+
+<div class="inner-box">
+    <div id="google-map-container">
+        <input type="hidden" id="google-map-geo-lat" name="geo.lat" value="[% notice.latitude %]" />
+        <input type="hidden" id="google-map-geo-long" name="geo.long" value="[% notice.longitude %]" />
+        <input type="hidden" id="google-map-geo-text" name="geo.text" value="[% notice.address || 'Værvarsel fra dette området' %]" />
+        <div id="google-map-show">
+            <p class="no-javascript">
+                Her skulle Google Maps bli vist. Dersom du ser denne teksten
+                istedet kan det hende du har skrudd av Javascript i din
+                nettleser, eller det kan være tekniske problemer hos oss eller
+                Google.
+            </p>
+        </div>
+    </div>
+</div>

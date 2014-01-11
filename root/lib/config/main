@@ -1,0 +1,29 @@
+[% # config/main
+   #
+   # This is the main configuration template which is processed before
+   # any other page, by virtue of it being defined as a PRE_PROCESS 
+   # template.  This is the place to define any extra template variables,
+   # macros, load plugins, and perform any other template setup.
+
+   IF Catalyst.debug;
+     # define a debug() macro directed to Catalyst's log
+     MACRO debug(message) CALL Catalyst.log.debug(message);
+   END;
+
+   # define a data structure to hold sitewide data
+   site = {
+     title          => 'Værvarsel rett hjem',
+     copyright      => '2008 <a href="http://hovenko.no/" title="Gå til hjemmesiden til Knut-Olav Hoven">Knut-Olav Hoven</a>',
+     datasource     => 'Værdata fra <a href="http://www.yr.no" title="Værdata fra YR.no" class="ekstern">yr.no</a>, fra Meteorologisk institutt og NRK',
+   };
+   
+   # load up any other configuration items 
+   PROCESS config/col
+         + config/url
+         + config/googleanalytics;
+
+   # set defaults for variables, etc.
+   DEFAULT 
+     message = 'There is no message';
+
+-%]

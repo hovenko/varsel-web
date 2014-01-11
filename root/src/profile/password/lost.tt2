@@ -1,0 +1,18 @@
+<div id="velkommen">
+    <h2>Glemt passord?</h2>
+
+    <p>
+        Har du glemt passordet ditt kan du gjenopprette det her.
+    </p>
+    
+    <p>
+        Skriv inn din e-postadresse i feltet nedenfor, og du vil motta en
+        e-post med en verifiseringskode som du kan bruke for å sette et nytt
+        passord.
+    </p>
+</div>
+
+<div class="inner-box">
+    <h2>Skriv inn din e-postadresse</h2>
+    [% PROCESS profile/password/form_lost.tt2 %]
+</div>
